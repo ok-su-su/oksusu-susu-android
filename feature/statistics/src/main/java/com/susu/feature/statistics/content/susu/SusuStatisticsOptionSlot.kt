@@ -14,6 +14,7 @@ import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.draw.clip
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
@@ -115,7 +116,9 @@ fun OptionSlot(
     onClick: () -> Unit = {},
 ) {
     Row(
-        modifier = modifier.background(color = Gray10, shape = RoundedCornerShape(4.dp))
+        modifier = modifier
+            .clip(RoundedCornerShape(4.dp))
+            .background(color = Gray10)
             .susuClickable(onClick = onClick)
             .padding(
                 horizontal = SusuTheme.spacing.spacing_xxs,

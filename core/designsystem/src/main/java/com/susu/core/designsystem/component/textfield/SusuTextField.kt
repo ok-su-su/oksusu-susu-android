@@ -86,7 +86,7 @@ fun SusuPriceTextField(
     val moneyUnitString = stringResource(R.string.money_unit)
     SusuBasicTextField(
         modifier = modifier,
-        text = text,
+        text = text.toLongOrNull()?.toString() ?: "",
         onTextChange = onTextChange,
         placeholder = placeholder,
         textColor = textColor,
