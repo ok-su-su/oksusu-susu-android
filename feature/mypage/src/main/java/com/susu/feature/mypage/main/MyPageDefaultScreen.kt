@@ -200,7 +200,7 @@ fun MyPageDefaultScreen(
                 Row(
                     modifier = Modifier.susuClickable(
                         rippleEnabled = false,
-                        onClick = navigateToInfo
+                        onClick = navigateToInfo,
                     ),
                 ) {
                     Text(
