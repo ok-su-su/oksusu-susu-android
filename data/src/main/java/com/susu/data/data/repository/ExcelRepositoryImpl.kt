@@ -19,7 +19,7 @@ class ExcelRepositoryImpl @Inject constructor(
         val request = DownloadManager.Request(url.toUri())
             .setMimeType(mimeType)
             .setAllowedOverMetered(true)
-            .setNotificationVisibility(DownloadManager.Request.VISIBILITY_VISIBLE)
+            .setNotificationVisibility(DownloadManager.Request.VISIBILITY_VISIBLE_NOTIFY_COMPLETED)
             .setTitle(downloaderName)
             .addRequestHeader(headerTokenName, token)
             .setDestinationInExternalPublicDir(Environment.DIRECTORY_DOWNLOADS, fileName)
