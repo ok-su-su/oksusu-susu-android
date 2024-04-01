@@ -148,8 +148,8 @@ fun LedgerDetailEnvelopeContainerPreview() {
                     relation = "관계관계관계",
                     customRelation = null,
                     description = null,
-                )
-            )
+                ),
+            ),
         ) {
         }
     }
