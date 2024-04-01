@@ -12,6 +12,7 @@ import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.draw.clip
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
 import com.susu.core.designsystem.theme.Gray10
@@ -57,14 +58,15 @@ fun StatisticsTabItem(
     onClick: () -> Unit,
 ) {
     Box(
-        modifier = modifier.fillMaxSize().background(
-            color = if (isSelected) {
-                Gray20
-            } else {
-                Gray10
-            },
-            shape = RoundedCornerShape(4.dp),
-        ).susuClickable(onClick = onClick),
+        modifier = modifier.fillMaxSize()
+            .clip(RoundedCornerShape(4.dp))
+            .background(
+                color = if (isSelected) {
+                    Gray20
+                } else {
+                    Gray10
+                },
+            ).susuClickable(onClick = onClick),
     ) {
         Text(
             modifier = Modifier.align(Alignment.Center),

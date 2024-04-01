@@ -198,7 +198,10 @@ fun MyPageDefaultScreen(
             titleTextStyle = SusuTheme.typography.title_m,
             action = {
                 Row(
-                    modifier = Modifier.susuClickable(onClick = navigateToInfo),
+                    modifier = Modifier.susuClickable(
+                        rippleEnabled = false,
+                        onClick = navigateToInfo
+                    ),
                 ) {
                     Text(
                         text = stringResource(com.susu.feature.mypage.R.string.mypage_default_my_info),

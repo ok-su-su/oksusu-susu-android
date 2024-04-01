@@ -105,7 +105,7 @@ fun SusuCheckedDialog(
                         text = it,
                         onClick = onDismissRequest,
                     )
-                    Spacer(modifier = Modifier.height(SusuTheme.spacing.spacing_xxs))
+                    Spacer(modifier = Modifier.width(SusuTheme.spacing.spacing_xxs))
                 }
                 SusuFilledButton(
                     modifier = Modifier.weight(1f),
