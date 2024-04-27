@@ -11,6 +11,7 @@ import com.susu.core.ui.extension.decodeFromUri
 import com.susu.domain.usecase.envelope.CreateSentEnvelopeUseCase
 import com.susu.feature.sent.navigation.SentRoute
 import dagger.hilt.android.lifecycle.HiltViewModel
+import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
 import kotlinx.datetime.toKotlinLocalDateTime
 import kotlinx.serialization.json.Json
@@ -50,6 +51,8 @@ class EnvelopeAddViewModel @Inject constructor(
 
     private fun createEnvelope() {
         viewModelScope.launch {
+            intent { copy(isLoading = true) }
+
             createSentEnvelopeUseCase(
                 param = CreateSentEnvelopeUseCase.Param(
                     friendId = friendId,
@@ -69,6 +72,8 @@ class EnvelopeAddViewModel @Inject constructor(
             }.onFailure {
                 postSideEffect(EnvelopeAddEffect.HandleException(it, ::createEnvelope))
             }
+
+            intent { copy(isLoading = false) }
         }
     }
 
