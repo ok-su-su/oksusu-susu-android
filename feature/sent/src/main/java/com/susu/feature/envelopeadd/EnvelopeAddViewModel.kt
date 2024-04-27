@@ -11,7 +11,6 @@ import com.susu.core.ui.extension.decodeFromUri
 import com.susu.domain.usecase.envelope.CreateSentEnvelopeUseCase
 import com.susu.feature.sent.navigation.SentRoute
 import dagger.hilt.android.lifecycle.HiltViewModel
-import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
 import kotlinx.datetime.toKotlinLocalDateTime
 import kotlinx.serialization.json.Json
