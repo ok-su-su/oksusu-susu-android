@@ -50,6 +50,8 @@ class EnvelopeAddViewModel @Inject constructor(
 
     private fun createEnvelope() {
         viewModelScope.launch {
+            intent { copy(isLoading = true) }
+
             createSentEnvelopeUseCase(
                 param = CreateSentEnvelopeUseCase.Param(
                     friendId = friendId,
@@ -69,6 +71,8 @@ class EnvelopeAddViewModel @Inject constructor(
             }.onFailure {
                 postSideEffect(EnvelopeAddEffect.HandleException(it, ::createEnvelope))
             }
+
+            intent { copy(isLoading = false) }
         }
     }
 
