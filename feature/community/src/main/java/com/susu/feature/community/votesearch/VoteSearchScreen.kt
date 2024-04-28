@@ -217,7 +217,7 @@ private fun RecentSearchColumn(
             )
             recentSearchList.forEach { name ->
                 SusuRecentSearchContainer(
-                    text = name,
+                    name = name,
                     onClick = { onClickItem(name) },
                     onClickCloseIcon = { onClickCloseIcon(name) },
                 )
@@ -251,7 +251,7 @@ private fun SearchResultColumn(
         voteList.forEach { vote ->
             SusuRecentSearchContainer(
                 typeIconId = R.drawable.ic_vote,
-                text = vote.content,
+                name = vote.content,
                 onClick = { onClickItem(vote) },
             )
         }

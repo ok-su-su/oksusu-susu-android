@@ -18,4 +18,5 @@ data class Envelope(
     val handedOverAt: LocalDateTime = java.time.LocalDateTime.now().toKotlinLocalDateTime(),
     val friend: Friend = Friend(),
     val relationship: Relationship = Relationship(),
+    val category: Category = Category(),
 )
