@@ -41,6 +41,7 @@ import kotlinx.collections.immutable.PersistentList
 import kotlinx.coroutines.FlowPreview
 import kotlinx.coroutines.flow.debounce
 import kotlinx.coroutines.launch
+import kotlinx.datetime.toJavaLocalDateTime
 
 @OptIn(FlowPreview::class)
 @Composable
@@ -217,7 +218,7 @@ private fun RecentSearchColumn(
             )
             recentSearchList.forEach { name ->
                 SusuRecentSearchContainer(
-                    text = name,
+                    name = name,
                     onClick = { onClickItem(name) },
                     onClickCloseIcon = { onClickCloseIcon(name) },
                 )
@@ -251,7 +252,10 @@ private fun SearchResultColumn(
         ledgerList.forEach { ledger ->
             SusuRecentSearchContainer(
                 typeIconId = R.drawable.ic_ledger,
-                text = ledger.title,
+                name = ledger.title,
+                category = ledger.category.name,
+                startDate = ledger.startAt.toJavaLocalDateTime(),
+                endDate = ledger.endAt.toJavaLocalDateTime(),
                 onClick = { onClickItem(ledger) },
             )
         }

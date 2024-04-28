@@ -78,7 +78,7 @@ class SentEnvelopeSearchViewModel @Inject constructor(
         // 두가지 조건을 검색 완료 시 결과를 통합 표시
         if (envelopesByFriend.isSuccess && envelopesByAmount.isSuccess) {
             val searchedEnvelopes =
-                envelopesByFriend.getOrDefault(emptyList()).map { it.envelope } + envelopesByAmount.getOrDefault(emptyList()).map { it.envelope }
+                envelopesByFriend.getOrDefault(emptyList()) + envelopesByAmount.getOrDefault(emptyList())
             intent { copy(envelopeList = searchedEnvelopes.toPersistentList()) }
         }
     }
