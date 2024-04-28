@@ -36,6 +36,7 @@ import com.susu.core.designsystem.theme.Gray60
 import com.susu.core.designsystem.theme.Gray80
 import com.susu.core.designsystem.theme.SusuTheme
 import com.susu.core.model.Envelope
+import com.susu.core.model.SearchEnvelope
 import com.susu.core.ui.extension.collectWithLifecycle
 import com.susu.feature.sent.R
 import kotlinx.collections.immutable.PersistentList
@@ -43,6 +44,7 @@ import kotlinx.collections.immutable.persistentListOf
 import kotlinx.coroutines.FlowPreview
 import kotlinx.coroutines.flow.debounce
 import kotlinx.coroutines.launch
+import kotlinx.datetime.toJavaLocalDateTime
 
 @OptIn(FlowPreview::class)
 @Composable
@@ -230,7 +232,7 @@ fun RecentSearchColumn(
     ) {
         recentSearchList.forEach { keyword ->
             SusuRecentSearchContainer(
-                text = keyword,
+                name = keyword,
                 onClick = { onClickItem(keyword) },
                 onClickCloseIcon = { onClickClearIcon(keyword) },
             )
@@ -266,18 +268,21 @@ fun EmptySearchEnvelope(
 @Composable
 fun SearchEnvelopeColumn(
     modifier: Modifier = Modifier,
-    searchResult: PersistentList<Envelope> = persistentListOf(),
+    searchResult: PersistentList<SearchEnvelope> = persistentListOf(),
     onClickItem: (Envelope) -> Unit = {},
 ) {
     Column(
         modifier = modifier,
         verticalArrangement = Arrangement.spacedBy(SusuTheme.spacing.spacing_m),
     ) {
-        searchResult.forEach { envelope ->
+        searchResult.forEach { searchEnvelope ->
             SusuRecentSearchContainer(
                 typeIconId = R.drawable.ic_envelope,
-                text = stringResource(R.string.sent_envelope_search_who_envelope, envelope.friend.name),
-                onClick = { onClickItem(envelope) },
+                name = stringResource(R.string.sent_envelope_search_who_envelope, searchEnvelope.friend.name),
+                category = searchEnvelope.category.name,
+                startDate = searchEnvelope.envelope.handedOverAt.toJavaLocalDateTime(),
+                endDate = searchEnvelope.envelope.handedOverAt.toJavaLocalDateTime(),
+                onClick = { onClickItem(searchEnvelope.envelope) },
             )
         }
     }
