@@ -4,13 +4,11 @@ import androidx.lifecycle.viewModelScope
 import com.susu.core.model.Category
 import com.susu.core.model.Ledger
 import com.susu.core.ui.base.BaseViewModel
-import com.susu.core.ui.extension.encodeToUri
 import com.susu.domain.usecase.ledger.CreateLedgerUseCase
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
 import kotlinx.datetime.toKotlinLocalDateTime
-import kotlinx.serialization.json.Json
 import java.time.LocalDateTime
 import javax.inject.Inject
 

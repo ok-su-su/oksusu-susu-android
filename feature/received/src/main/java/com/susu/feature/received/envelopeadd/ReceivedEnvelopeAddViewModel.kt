@@ -7,7 +7,6 @@ import com.susu.core.model.Relationship
 import com.susu.core.model.exception.AlreadyRegisteredFriendPhoneNumberException
 import com.susu.core.ui.base.BaseViewModel
 import com.susu.core.ui.extension.decodeFromUri
-import com.susu.core.ui.extension.encodeToUri
 import com.susu.domain.usecase.envelope.CreateReceivedEnvelopeUseCase
 import com.susu.feature.received.navigation.ReceivedRoute
 import dagger.hilt.android.lifecycle.HiltViewModel

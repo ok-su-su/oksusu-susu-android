@@ -8,7 +8,7 @@ interface LedgerRepository {
         title: String?,
         categoryIdList: List<Int>?,
         fromStartAt: LocalDateTime,
-        toEndAt: LocalDateTime,
+        toStartAt: LocalDateTime,
         page: Int?,
         sort: String?,
     ): List<Ledger>
