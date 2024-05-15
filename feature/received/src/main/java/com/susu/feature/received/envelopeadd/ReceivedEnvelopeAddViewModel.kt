@@ -66,8 +66,8 @@ class ReceivedEnvelopeAddViewModel @Inject constructor(
                 handedOverAt = date!!.toKotlinLocalDateTime(),
                 hasVisited = hasVisited,
             ),
-        ).onSuccess {
-            postSideEffect(ReceivedEnvelopeAddSideEffect.PopBackStackWithEnvelope(Json.encodeToUri(it)))
+        ).onSuccess { envelope ->
+            postSideEffect(ReceivedEnvelopeAddSideEffect.NavigateEnvelopeDetail(envelope, ledger))
         }.onFailure { throwable ->
             when (throwable) {
                 is AlreadyRegisteredFriendPhoneNumberException -> postSideEffect(ReceivedEnvelopeAddSideEffect.ShowSnackbar(throwable.message))
