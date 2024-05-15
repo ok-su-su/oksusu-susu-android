@@ -172,7 +172,10 @@ fun NavGraphBuilder.receivedNavGraph(
         ReceivedEnvelopeAddRoute(
             popBackStack = popBackStack,
             onShowSnackbar = onShowSnackbar,
-            popBackStackWithEnvelope = popBackStackWithEnvelope,
+            navigateEnvelopeDetail = { envelope, ledger ->
+                popBackStackWithEnvelope(Json.encodeToUri(envelope))
+                navigateEnvelopeDetail(envelope, ledger)
+            },
             handleException = handleException,
         )
     }
