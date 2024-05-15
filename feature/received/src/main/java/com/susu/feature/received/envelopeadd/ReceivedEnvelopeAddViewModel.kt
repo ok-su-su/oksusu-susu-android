@@ -7,7 +7,6 @@ import com.susu.core.model.Relationship
 import com.susu.core.model.exception.AlreadyRegisteredFriendPhoneNumberException
 import com.susu.core.ui.base.BaseViewModel
 import com.susu.core.ui.extension.decodeFromUri
-import com.susu.core.ui.extension.encodeToUri
 import com.susu.domain.usecase.envelope.CreateReceivedEnvelopeUseCase
 import com.susu.feature.received.navigation.ReceivedRoute
 import dagger.hilt.android.lifecycle.HiltViewModel
@@ -66,8 +65,8 @@ class ReceivedEnvelopeAddViewModel @Inject constructor(
                 handedOverAt = date!!.toKotlinLocalDateTime(),
                 hasVisited = hasVisited,
             ),
-        ).onSuccess {
-            postSideEffect(ReceivedEnvelopeAddSideEffect.PopBackStackWithEnvelope(Json.encodeToUri(it)))
+        ).onSuccess { envelope ->
+            postSideEffect(ReceivedEnvelopeAddSideEffect.NavigateEnvelopeDetail(envelope, ledger))
         }.onFailure { throwable ->
             when (throwable) {
                 is AlreadyRegisteredFriendPhoneNumberException -> postSideEffect(ReceivedEnvelopeAddSideEffect.ShowSnackbar(throwable.message))

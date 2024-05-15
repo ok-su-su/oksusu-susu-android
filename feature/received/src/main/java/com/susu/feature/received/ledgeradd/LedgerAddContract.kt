@@ -1,5 +1,6 @@
 package com.susu.feature.received.ledgeradd
 
+import com.susu.core.model.Ledger
 import com.susu.core.ui.base.SideEffect
 import com.susu.core.ui.base.UiState
 
@@ -18,6 +19,6 @@ enum class LedgerAddStep {
 sealed interface LedgerAddSideEffect : SideEffect {
     data object HideKeyboard : LedgerAddSideEffect
     data object PopBackStack : LedgerAddSideEffect
-    data class PopBackStackWithLedger(val ledger: String) : LedgerAddSideEffect
+    data class NavigateLedgerDetail(val ledger: Ledger) : LedgerAddSideEffect
     data class HandleException(val throwable: Throwable, val retry: () -> Unit) : LedgerAddSideEffect
 }

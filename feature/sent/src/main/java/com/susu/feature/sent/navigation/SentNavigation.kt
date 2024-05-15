@@ -139,7 +139,10 @@ fun NavGraphBuilder.sentNavGraph(
     composable(route = SentRoute.sentEnvelopeAddRoute("{${SentRoute.FRIEND_ARGUMENT_NAME}}")) {
         SentEnvelopeAddRoute(
             popBackStack = popBackStack,
-            popBackStackWithRefresh = popBackStackWithRefresh,
+            navigateSentEnvelopeDetail = {
+                popBackStackWithRefresh()
+                navigateSentEnvelopeDetail(it)
+            },
             handleException = handleException,
             onShowSnackbar = onShowSnackbar,
         )

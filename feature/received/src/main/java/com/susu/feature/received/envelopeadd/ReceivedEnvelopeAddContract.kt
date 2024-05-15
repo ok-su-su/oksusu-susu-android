@@ -1,6 +1,8 @@
 package com.susu.feature.received.envelopeadd
 
 import androidx.annotation.StringRes
+import com.susu.core.model.Envelope
+import com.susu.core.model.Ledger
 import com.susu.core.ui.base.SideEffect
 import com.susu.core.ui.base.UiState
 import com.susu.feature.received.R
@@ -37,7 +39,7 @@ enum class EnvelopeAddStep(
 sealed interface ReceivedEnvelopeAddSideEffect : SideEffect {
     data class ShowSnackbar(val message: String) : ReceivedEnvelopeAddSideEffect
     data object PopBackStack : ReceivedEnvelopeAddSideEffect
-    data class PopBackStackWithEnvelope(val envelope: String) : ReceivedEnvelopeAddSideEffect
+    data class NavigateEnvelopeDetail(val envelope: Envelope, val ledger: Ledger) : ReceivedEnvelopeAddSideEffect
     data class HandleException(val throwable: Throwable, val retry: () -> Unit) : ReceivedEnvelopeAddSideEffect
     data class LogClickNextButton(val step: EnvelopeAddStep) : ReceivedEnvelopeAddSideEffect
     data class LogClickBackButton(val step: EnvelopeAddStep) : ReceivedEnvelopeAddSideEffect

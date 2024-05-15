@@ -5,7 +5,7 @@ import com.susu.core.ui.base.UiState
 
 sealed interface EnvelopeAddEffect : SideEffect {
     data object PopBackStack : EnvelopeAddEffect
-    data object PopBackStackWithRefresh : EnvelopeAddEffect
+    data class NavigateSentEnvelopeDetail(val id: Long) : EnvelopeAddEffect
     data class HandleException(val throwable: Throwable, val retry: () -> Unit) : EnvelopeAddEffect
     data class LogClickNextButton(val step: EnvelopeAddStep) : EnvelopeAddEffect
     data class LogClickBackButton(val step: EnvelopeAddStep) : EnvelopeAddEffect

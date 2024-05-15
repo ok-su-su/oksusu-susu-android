@@ -27,6 +27,7 @@ import com.susu.core.designsystem.component.button.SusuFilledButton
 import com.susu.core.designsystem.component.screen.LoadingScreen
 import com.susu.core.designsystem.theme.SusuTheme
 import com.susu.core.model.Category
+import com.susu.core.model.Ledger
 import com.susu.core.ui.R
 import com.susu.core.ui.SnackbarToken
 import com.susu.core.ui.extension.collectWithLifecycle
@@ -40,7 +41,7 @@ import java.time.LocalDateTime
 fun LedgerAddRoute(
     viewModel: LedgerAddViewModel = hiltViewModel(),
     popBackStack: () -> Unit,
-    popBackStackWithLedger: (String) -> Unit,
+    navigateLedgerDetail: (Ledger) -> Unit,
     onShowSnackbar: (SnackbarToken) -> Unit,
     handleException: (Throwable, () -> Unit) -> Unit,
 ) {
@@ -50,7 +51,7 @@ fun LedgerAddRoute(
         when (sideEffect) {
             LedgerAddSideEffect.PopBackStack -> popBackStack()
             is LedgerAddSideEffect.HandleException -> handleException(sideEffect.throwable, sideEffect.retry)
-            is LedgerAddSideEffect.PopBackStackWithLedger -> popBackStackWithLedger(sideEffect.ledger)
+            is LedgerAddSideEffect.NavigateLedgerDetail -> navigateLedgerDetail(sideEffect.ledger)
             LedgerAddSideEffect.HideKeyboard -> keyboardController?.hide()
         }
     }

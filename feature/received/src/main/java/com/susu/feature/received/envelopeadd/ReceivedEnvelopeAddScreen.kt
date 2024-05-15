@@ -29,6 +29,8 @@ import com.susu.core.designsystem.component.button.MediumButtonStyle
 import com.susu.core.designsystem.component.button.SusuFilledButton
 import com.susu.core.designsystem.component.screen.LoadingScreen
 import com.susu.core.designsystem.theme.SusuTheme
+import com.susu.core.model.Envelope
+import com.susu.core.model.Ledger
 import com.susu.core.model.Relationship
 import com.susu.core.ui.SnackbarToken
 import com.susu.core.ui.extension.collectWithLifecycle
@@ -50,7 +52,7 @@ import java.time.LocalDateTime
 fun ReceivedEnvelopeAddRoute(
     viewModel: ReceivedEnvelopeAddViewModel = hiltViewModel(),
     popBackStack: () -> Unit,
-    popBackStackWithEnvelope: (String) -> Unit,
+    navigateEnvelopeDetail: (Envelope, Ledger) -> Unit,
     onShowSnackbar: (SnackbarToken) -> Unit,
     handleException: (Throwable, () -> Unit) -> Unit,
 ) {
@@ -64,7 +66,7 @@ fun ReceivedEnvelopeAddRoute(
             is ReceivedEnvelopeAddSideEffect.HandleException -> handleException(sideEffect.throwable, sideEffect.retry)
             ReceivedEnvelopeAddSideEffect.PopBackStack -> popBackStack()
             is ReceivedEnvelopeAddSideEffect.ShowSnackbar -> onShowSnackbar(SnackbarToken(message = sideEffect.message))
-            is ReceivedEnvelopeAddSideEffect.PopBackStackWithEnvelope -> popBackStackWithEnvelope(sideEffect.envelope)
+            is ReceivedEnvelopeAddSideEffect.NavigateEnvelopeDetail -> navigateEnvelopeDetail(sideEffect.envelope, sideEffect.ledger)
             is ReceivedEnvelopeAddSideEffect.LogClickBackButton -> scope.launch {
                 FirebaseAnalytics.getInstance(context).logEvent(
                     FirebaseAnalytics.Event.SELECT_CONTENT,
