@@ -52,7 +52,7 @@ import java.time.LocalDateTime
 fun SentEnvelopeAddRoute(
     viewModel: EnvelopeAddViewModel = hiltViewModel(),
     popBackStack: () -> Unit,
-    popBackStackWithRefresh: () -> Unit,
+    navigateSentEnvelopeDetail: (Long) -> Unit,
     onShowSnackbar: (SnackbarToken) -> Unit,
     handleException: (Throwable, () -> Unit) -> Unit,
 ) {
@@ -64,7 +64,7 @@ fun SentEnvelopeAddRoute(
         when (sideEffect) {
             is EnvelopeAddEffect.HandleException -> handleException(sideEffect.throwable, sideEffect.retry)
             EnvelopeAddEffect.PopBackStack -> popBackStack()
-            EnvelopeAddEffect.PopBackStackWithRefresh -> popBackStackWithRefresh()
+            is EnvelopeAddEffect.NavigateSentEnvelopeDetail -> navigateSentEnvelopeDetail(sideEffect.id)
             is EnvelopeAddEffect.LogClickBackButton -> scope.launch {
                 FirebaseAnalytics.getInstance(context).logEvent(
                     FirebaseAnalytics.Event.SELECT_CONTENT,
