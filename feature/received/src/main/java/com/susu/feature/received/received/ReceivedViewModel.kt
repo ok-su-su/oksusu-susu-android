@@ -104,7 +104,7 @@ class ReceivedViewModel @Inject constructor(
                     page = page,
                     categoryIdList = filter.selectedCategoryList.map { it.id },
                     fromStartAt = currentState.startAt,
-                    toEndAt = currentState.endAt,
+                    toStartAt = currentState.endAt,
                     sort = LedgerAlign.entries[currentState.selectedAlignPosition].query,
                 ),
             ).onSuccess { ledgerList ->

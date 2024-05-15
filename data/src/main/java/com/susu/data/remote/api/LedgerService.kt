@@ -20,7 +20,7 @@ interface LedgerService {
         @Query("title") title: String?,
         @Query("categoryIds") categoryIdList: List<Int>?,
         @Query("fromStartAt") fromStartAt: LocalDateTime,
-        @Query("toEndAt") toEndAt: LocalDateTime,
+        @Query("toStartAt") toStartAt: LocalDateTime,
         @Query("page") page: Int?,
         @Query("sort") sort: String?,
     ): ApiResult<LedgerListResponse>

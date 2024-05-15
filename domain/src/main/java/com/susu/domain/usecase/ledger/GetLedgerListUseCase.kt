@@ -14,7 +14,7 @@ class GetLedgerListUseCase @Inject constructor(
                 title = title,
                 categoryIdList = categoryIdList,
                 fromStartAt = fromStartAt ?: LocalDateTime.now().minusYears(100),
-                toEndAt = toEndAt ?: LocalDateTime.now().plusYears(100),
+                toStartAt = toStartAt ?: LocalDateTime.now().plusYears(100),
                 page = page,
                 sort = sort,
             )
@@ -25,7 +25,7 @@ class GetLedgerListUseCase @Inject constructor(
         val title: String? = null,
         val categoryIdList: List<Int>? = null,
         val fromStartAt: LocalDateTime? = null,
-        val toEndAt: LocalDateTime? = null,
+        val toStartAt: LocalDateTime? = null,
         val page: Int? = null,
         val sort: String? = null,
     )

@@ -16,14 +16,14 @@ class LedgerRepositoryImpl @Inject constructor(
         title: String?,
         categoryIdList: List<Int>?,
         fromStartAt: LocalDateTime,
-        toEndAt: LocalDateTime,
+        toStartAt: LocalDateTime,
         page: Int?,
         sort: String?,
     ): List<Ledger> = ledgerService.getLedgerList(
         title = title,
         categoryIdList = categoryIdList,
         fromStartAt = fromStartAt.toKotlinLocalDateTime(),
-        toEndAt = toEndAt.toKotlinLocalDateTime(),
+        toStartAt = toStartAt.toKotlinLocalDateTime(),
         page = page,
         sort = sort,
     ).getOrThrow().toModel()
