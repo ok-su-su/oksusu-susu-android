@@ -80,7 +80,7 @@ class LedgerAddViewModel @Inject constructor(
                 category = selectedCategory!!,
             ),
         ).onSuccess { ledger ->
-            postSideEffect(LedgerAddSideEffect.PopBackStackWithLedger(Json.encodeToUri(ledger)))
+            postSideEffect(LedgerAddSideEffect.NavigateLedgerDetail(ledger))
         }.onFailure {
             postSideEffect(LedgerAddSideEffect.HandleException(it, ::createLedger))
         }
