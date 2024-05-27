@@ -30,11 +30,11 @@ enum class LedgerAlign(
 ) {
     RECENT(
         stringResId = R.string.word_align_recently,
-        query = "createdAt,desc",
+        query = "startAt,desc",
     ),
     OUTDATED(
         stringResId = R.string.word_align_outdated,
-        query = "createdAt,asc",
+        query = "endAt,asc",
     ),
     HIGH_AMOUNT(
         stringResId = R.string.word_align_high_amount,
