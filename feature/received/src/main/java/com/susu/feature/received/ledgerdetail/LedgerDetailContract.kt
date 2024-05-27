@@ -34,11 +34,11 @@ enum class EnvelopeAlign(
 ) {
     RECENT(
         stringResId = R.string.word_align_recently,
-        query = "createdAt,desc",
+        query = "handedOverAt,desc",
     ),
     OUTDATED(
         stringResId = R.string.word_align_outdated,
-        query = "createdAt,asc",
+        query = "handedOverAt,asc",
     ),
     HIGH_AMOUNT(
         stringResId = R.string.word_align_high_amount,
