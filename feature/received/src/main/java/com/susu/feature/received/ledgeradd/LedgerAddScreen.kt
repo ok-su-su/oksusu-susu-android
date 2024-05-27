@@ -150,7 +150,7 @@ fun LedgerAddScreen(
             shape = RectangleShape,
             color = FilledButtonColor.Black,
             style = MediumButtonStyle.height60,
-            text = stringResource(id = R.string.word_save),
+            text = stringResource(id = R.string.word_next),
             isClickable = uiState.buttonEnabled,
             isActive = uiState.buttonEnabled,
             onClick = onClickNextButton,
