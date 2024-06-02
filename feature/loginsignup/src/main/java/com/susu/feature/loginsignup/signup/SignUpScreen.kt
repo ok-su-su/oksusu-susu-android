@@ -62,11 +62,6 @@ fun SignUpRoute(
     val context = LocalContext.current
     val uiState: SignUpState by viewModel.uiState.collectAsStateWithLifecycle()
     val termState: TermState by termViewModel.uiState.collectAsStateWithLifecycle()
-    val localTerms = remember {
-        persistentListOf(
-            Term(id = 0, title = context.getString(R.string.signup_term_over_14), isEssential = true, canRead = false),
-        )
-    }
 
     BackHandler {
         viewModel.goPreviousStep()
@@ -86,7 +81,7 @@ fun SignUpRoute(
     }
 
     LaunchedEffect(key1 = Unit) {
-        termViewModel.getTermList(localTerms = localTerms)
+        termViewModel.getTermList()
     }
 
     Box(
