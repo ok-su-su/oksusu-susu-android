@@ -52,6 +52,8 @@ class SentEnvelopeSearchViewModel @Inject constructor(
     }
 
     fun getEnvelopeList(search: String) = viewModelScope.launch {
+        if (search.isEmpty()) return@launch
+
         val searchedFriends = searchFriendUseCase(search).getOrThrow()
 
         // 친구 검색 결과가 존재하면 봉투 검색
