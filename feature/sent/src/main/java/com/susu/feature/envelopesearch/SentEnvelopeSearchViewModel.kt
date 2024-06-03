@@ -88,7 +88,6 @@ class SentEnvelopeSearchViewModel @Inject constructor(
         intent { copy(envelopeList = result.toPersistentList()) }
     }
 
-
     private fun updateRecentSearchList(searchList: List<String>) {
         intent {
             copy(recentSearchKeywordList = searchList.toPersistentList())
