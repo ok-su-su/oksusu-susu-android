@@ -306,7 +306,7 @@ fun LedgerEditScreen(
                 initialCriteriaYear = uiState.endYear,
                 initialCriteriaMonth = uiState.endMonth,
                 initialCriteriaDay = uiState.endDay,
-                afterDate = false,
+                afterDate = uiState.showOnlyStartDate,
                 maximumContainerHeight = 346.dp,
                 onDismissRequest = { _, _, _ -> onDismissStartDateBottomSheet() },
                 onItemSelected = onStartDateItemSelected,
