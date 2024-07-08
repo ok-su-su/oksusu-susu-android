@@ -24,7 +24,7 @@ fun TermResponse.toModel(): Term = Term(
     id = id,
     title = title,
     isEssential = isEssential,
-    canRead = isIncludeDetail
+    canRead = isIncludeDetail,
 )
 
 fun TermDetailResponse.toModel(): TermDetail = TermDetail(

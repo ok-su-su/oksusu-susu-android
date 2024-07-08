@@ -1,12 +1,10 @@
 package com.susu.feature.loginsignup.signup
 
 import androidx.lifecycle.viewModelScope
-import com.susu.core.model.Term
 import com.susu.core.ui.base.BaseViewModel
 import com.susu.domain.usecase.loginsignup.GetTermDetailUseCase
 import com.susu.domain.usecase.loginsignup.GetTermsUseCase
 import dagger.hilt.android.lifecycle.HiltViewModel
-import kotlinx.collections.immutable.PersistentList
 import kotlinx.collections.immutable.toPersistentList
 import kotlinx.coroutines.launch
 import javax.inject.Inject
