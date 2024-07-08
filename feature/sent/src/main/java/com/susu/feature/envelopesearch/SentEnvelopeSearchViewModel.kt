@@ -10,6 +10,8 @@ import com.susu.domain.usecase.friend.SearchFriendUseCase
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.collections.immutable.persistentListOf
 import kotlinx.collections.immutable.toPersistentList
+import kotlinx.coroutines.async
+import kotlinx.coroutines.awaitAll
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
@@ -52,35 +54,38 @@ class SentEnvelopeSearchViewModel @Inject constructor(
     }
 
     fun getEnvelopeList(search: String) = viewModelScope.launch {
+        if (search.isEmpty()) return@launch
+
         val searchedFriends = searchFriendUseCase(search).getOrThrow()
 
         // 친구 검색 결과가 존재하면 봉투 검색
-        val envelopesByFriend = if (searchedFriends.isNotEmpty()) {
-            searchSentEnvelopeListUseCase(
-                param = SearchSentEnvelopeListUseCase.Param(
-                    friendIds = searchedFriends.map { it.friend.id.toInt() },
-                ),
-            )
-        } else {
-            Result.success(emptyList())
+        val envelopesByFriend = async {
+            if (searchedFriends.isNotEmpty()) {
+                searchSentEnvelopeListUseCase(
+                    param = SearchSentEnvelopeListUseCase.Param(
+                        friendIds = searchedFriends.map { it.friend.id.toInt() },
+                    ),
+                ).getOrDefault(emptyList())
+            } else {
+                emptyList()
+            }
         }
 
         // 숫자 형식일 경우는 금액으로 봉투 검색
-        val envelopesByAmount = search.toLongOrNull()?.let { amount ->
-            searchSentEnvelopeListUseCase(
-                param = SearchSentEnvelopeListUseCase.Param(
-                    fromAmount = amount,
-                    toAmount = amount,
-                ),
-            )
-        } ?: Result.success(emptyList())
+        val envelopesByAmount = async {
+            search.toLongOrNull()?.let { amount ->
+                searchSentEnvelopeListUseCase(
+                    param = SearchSentEnvelopeListUseCase.Param(
+                        fromAmount = amount,
+                        toAmount = amount,
+                    ),
+                ).getOrDefault(emptyList())
+            } ?: emptyList()
+        }
 
         // 두가지 조건을 검색 완료 시 결과를 통합 표시
-        if (envelopesByFriend.isSuccess && envelopesByAmount.isSuccess) {
-            val searchedEnvelopes =
-                envelopesByFriend.getOrDefault(emptyList()) + envelopesByAmount.getOrDefault(emptyList())
-            intent { copy(envelopeList = searchedEnvelopes.toPersistentList()) }
-        }
+        val result = awaitAll(envelopesByFriend, envelopesByAmount).flatten()
+        intent { copy(envelopeList = result.toPersistentList()) }
     }
 
     private fun updateRecentSearchList(searchList: List<String>) {
