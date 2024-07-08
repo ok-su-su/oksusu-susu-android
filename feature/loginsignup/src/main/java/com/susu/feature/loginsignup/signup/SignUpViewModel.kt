@@ -12,6 +12,8 @@ import com.susu.core.ui.base.BaseViewModel
 import com.susu.domain.usecase.loginsignup.SignUpUseCase
 import com.susu.feature.loginsignup.social.KakaoLoginHelper
 import dagger.hilt.android.lifecycle.HiltViewModel
+import kotlinx.collections.immutable.persistentSetOf
+import kotlinx.collections.immutable.toPersistentSet
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
@@ -43,19 +45,19 @@ class SignUpViewModel @Inject constructor(
     }
 
     fun agreeTerm(termId: Int) {
-        intent { copy(agreedTerms = agreedTerms + termId) }
+        intent { copy(agreedTerms = agreedTerms.add(termId)) }
     }
 
     fun disagreeTerm(termId: Int) {
-        intent { copy(agreedTerms = agreedTerms - termId) }
+        intent { copy(agreedTerms = agreedTerms.remove(termId)) }
     }
 
     fun agreeAllTerms(entireTermIds: List<Int>) {
-        intent { copy(agreedTerms = entireTermIds) }
+        intent { copy(agreedTerms = entireTermIds.toPersistentSet()) }
     }
 
     fun disagreeAllTerms() {
-        intent { copy(agreedTerms = emptyList()) }
+        intent { copy(agreedTerms = persistentSetOf()) }
     }
 
     fun goNextStep() {
@@ -96,7 +98,7 @@ class SignUpViewModel @Inject constructor(
                             } else {
                                 null
                             },
-                            termAgreement = uiState.value.agreedTerms,
+                            termAgreement = uiState.value.agreedTerms.toList(),
                         ),
                     ).onSuccess {
                         postSideEffect(SignUpEffect.NavigateToReceived)
