@@ -20,7 +20,6 @@ import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
-import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.RectangleShape
@@ -39,7 +38,6 @@ import com.susu.core.designsystem.component.button.MediumButtonStyle
 import com.susu.core.designsystem.component.button.SusuFilledButton
 import com.susu.core.designsystem.component.screen.LoadingScreen
 import com.susu.core.designsystem.theme.SusuTheme
-import com.susu.core.model.Term
 import com.susu.core.ui.SnackbarToken
 import com.susu.core.ui.USER_BIRTH_RANGE
 import com.susu.core.ui.extension.collectWithLifecycle
@@ -47,7 +45,7 @@ import com.susu.feature.loginsignup.R
 import com.susu.feature.loginsignup.signup.content.AdditionalContent
 import com.susu.feature.loginsignup.signup.content.NameContent
 import com.susu.feature.loginsignup.signup.content.TermsContent
-import kotlinx.collections.immutable.persistentListOf
+import kotlinx.collections.immutable.toPersistentList
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
@@ -62,11 +60,6 @@ fun SignUpRoute(
     val context = LocalContext.current
     val uiState: SignUpState by viewModel.uiState.collectAsStateWithLifecycle()
     val termState: TermState by termViewModel.uiState.collectAsStateWithLifecycle()
-    val localTerms = remember {
-        persistentListOf(
-            Term(id = 0, title = context.getString(R.string.signup_term_over_14), isEssential = true, canRead = false),
-        )
-    }
 
     BackHandler {
         viewModel.goPreviousStep()
@@ -86,7 +79,7 @@ fun SignUpRoute(
     }
 
     LaunchedEffect(key1 = Unit) {
-        termViewModel.getTermList(localTerms = localTerms)
+        termViewModel.getTermList()
     }
 
     Box(
@@ -136,7 +129,7 @@ fun SignUpRoute(
                             modifier = Modifier.fillMaxSize(),
                             descriptionText = targetState.description?.let { stringResource(id = it) } ?: "",
                             terms = termState.terms,
-                            agreedTerms = uiState.agreedTerms,
+                            agreedTerms = uiState.agreedTerms.toPersistentList(),
                             onDetailClick = {
                                 termViewModel.updateCurrentTerm(it)
                                 viewModel.goTermDetail()
