@@ -18,6 +18,7 @@ import androidx.compose.foundation.verticalScroll
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
@@ -44,6 +45,7 @@ import com.susu.feature.loginsignup.R
 import com.susu.feature.loginsignup.signup.content.AdditionalContent
 import com.susu.feature.loginsignup.signup.content.NameContent
 import com.susu.feature.loginsignup.signup.content.TermsContent
+import kotlinx.collections.immutable.toPersistentList
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
@@ -76,7 +78,15 @@ fun SignUpRoute(
         }
     }
 
-    Box(modifier = Modifier.fillMaxSize().padding(padding)) {
+    LaunchedEffect(key1 = Unit) {
+        termViewModel.getTermList()
+    }
+
+    Box(
+        modifier = Modifier
+            .fillMaxSize()
+            .padding(padding),
+    ) {
         SignUpScreen(
             uiState = uiState,
             termState = termState,
@@ -119,7 +129,7 @@ fun SignUpRoute(
                             modifier = Modifier.fillMaxSize(),
                             descriptionText = targetState.description?.let { stringResource(id = it) } ?: "",
                             terms = termState.terms,
-                            agreedTerms = uiState.agreedTerms,
+                            agreedTerms = uiState.agreedTerms.toPersistentList(),
                             onDetailClick = {
                                 termViewModel.updateCurrentTerm(it)
                                 viewModel.goTermDetail()
@@ -241,7 +251,9 @@ fun SignUpScreen(
         }
         content()
         SusuFilledButton(
-            modifier = Modifier.fillMaxWidth().imePadding(),
+            modifier = Modifier
+                .fillMaxWidth()
+                .imePadding(),
             shape = RectangleShape,
             color = FilledButtonColor.Black,
             style = MediumButtonStyle.height60,

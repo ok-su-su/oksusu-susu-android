@@ -62,6 +62,7 @@ fun TermsContent(
                 title = term.title,
                 checked = agreedTerms.contains(term.id),
                 isEssential = term.isEssential,
+                canRead = term.canRead,
                 onDetailClick = { onDetailClick(term.id) },
                 onCheckClick = {
                     onTermChecked(it, term.id)
@@ -79,11 +80,13 @@ fun TermListItem(
     isEssential: Boolean = true,
     canRead: Boolean = true,
     onCheckClick: (Boolean) -> Unit = {},
-    onDetailClick: (() -> Unit)? = null,
+    onDetailClick: (() -> Unit) = {},
 ) {
     Row(
-        modifier = if (onDetailClick != null) {
-            modifier.susuClickable(onClick = onDetailClick).padding(vertical = SusuTheme.spacing.spacing_m)
+        modifier = if (canRead) {
+            modifier
+                .susuClickable(onClick = onDetailClick)
+                .padding(vertical = SusuTheme.spacing.spacing_m)
         } else {
             modifier.padding(vertical = SusuTheme.spacing.spacing_m)
         },
@@ -122,7 +125,11 @@ fun TermsContentPreview() {
         TermsContent(
             modifier = Modifier.fillMaxSize(),
             descriptionText = "어쩌구저쩌구\n뭐를해주세요",
-            terms = listOf(Term(1, "노예 계약", true), Term(2, "농노 계약", true)),
+            terms = listOf(
+                Term(0, "14세 이상?", true, false),
+                Term(1, "노예 계약", true),
+                Term(2, "농노 계약", true),
+            ),
         )
     }
 }

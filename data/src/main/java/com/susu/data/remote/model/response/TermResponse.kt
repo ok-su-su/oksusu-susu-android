@@ -9,6 +9,7 @@ data class TermResponse(
     val id: Int,
     val title: String,
     val isEssential: Boolean,
+    val isIncludeDetail: Boolean = true,
 )
 
 @Serializable
@@ -23,6 +24,7 @@ fun TermResponse.toModel(): Term = Term(
     id = id,
     title = title,
     isEssential = isEssential,
+    canRead = isIncludeDetail,
 )
 
 fun TermDetailResponse.toModel(): TermDetail = TermDetail(

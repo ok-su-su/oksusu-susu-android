@@ -5,6 +5,8 @@ import com.susu.core.ui.Gender
 import com.susu.core.ui.base.SideEffect
 import com.susu.core.ui.base.UiState
 import com.susu.feature.loginsignup.R
+import kotlinx.collections.immutable.PersistentSet
+import kotlinx.collections.immutable.persistentSetOf
 
 sealed interface SignUpEffect : SideEffect {
     data object NavigateToLogin : SignUpEffect
@@ -16,7 +18,7 @@ sealed interface SignUpEffect : SideEffect {
 data class SignUpState(
     val isLoading: Boolean = false,
     val currentStep: SignUpStep = SignUpStep.TERMS,
-    val agreedTerms: List<Int> = emptyList(),
+    val agreedTerms: PersistentSet<Int> = persistentSetOf(),
     val name: String = "",
     val isNameValid: Boolean = true,
     val gender: Gender = Gender.NONE,
