@@ -13,6 +13,7 @@ class StatisticsRepositoryImpl @Inject constructor(
 ) : StatisticsRepository {
     override suspend fun getMyStatistics(): MyStatistics {
         val originalStatistic = statisticsService.getMyStatistics().getOrThrow().toModel()
+        val visibleRecentSpentCount = if (originalStatistic.recentSpent.size > 6) 6 else originalStatistic.recentSpent.size
         val sortedRecentSpent = originalStatistic.recentSpent
             .filter {
                 currentYear == it.title.substring(0 until 4).toInt()
@@ -24,6 +25,7 @@ class StatisticsRepositoryImpl @Inject constructor(
                 )
             }
             .sortedBy { it.title.toInt() }
+            .takeLast(visibleRecentSpentCount)
 
         return MyStatistics(
             highestAmountReceived = originalStatistic.highestAmountReceived,
@@ -43,6 +45,8 @@ class StatisticsRepositoryImpl @Inject constructor(
             relationshipId = relationshipId,
             categoryId = categoryId,
         ).getOrThrow().toModel()
+
+        val visibleRecentSpentCount = if (originalStatistic.recentSpent.size > 6) 6 else originalStatistic.recentSpent.size
         val sortedRecentSpent = originalStatistic.recentSpent
             .filter {
                 currentYear == it.title.substring(0 until 4).toInt()
@@ -54,6 +58,7 @@ class StatisticsRepositoryImpl @Inject constructor(
                 )
             }
             .sortedBy { it.title.toInt() }
+            .takeLast(visibleRecentSpentCount)
 
         return SusuStatistics(
             averageSent = originalStatistic.averageSent,

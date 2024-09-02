@@ -210,7 +210,7 @@ fun SusuStatisticsScreen(
 
             RecentSpentGraph(
                 isActive = !uiState.isBlind,
-                graphTitle = stringResource(R.string.statistics_susu_this_year_spent),
+                graphTitle = stringResource(R.string.statistics_recent_6_total_money),
                 spentData = uiState.susuStatistics.recentSpent.toPersistentList(),
                 maximumAmount = uiState.susuStatistics.recentMaximumSpent,
                 totalAmount = uiState.susuStatistics.recentTotalSpent,
