@@ -7,6 +7,7 @@ import com.susu.core.model.exception.UnknownException
 import com.susu.core.ui.base.BaseViewModel
 import com.susu.domain.usecase.categoryconfig.GetCategoryConfigUseCase
 import com.susu.domain.usecase.envelope.GetRelationShipConfigListUseCase
+import com.susu.domain.usecase.mypage.GetUserUseCase
 import com.susu.domain.usecase.statistics.CheckAdditionalUserInfoUseCase
 import com.susu.domain.usecase.statistics.GetSusuStatisticsUseCase
 import dagger.hilt.android.lifecycle.HiltViewModel
@@ -20,7 +21,19 @@ class SusuStatisticsViewModel @Inject constructor(
     private val getCategoryConfigUseCase: GetCategoryConfigUseCase,
     private val getRelationShipConfigListUseCase: GetRelationShipConfigListUseCase,
     private val getSusuStatisticsUseCase: GetSusuStatisticsUseCase,
+    private val getUserUseCase: GetUserUseCase,
 ) : BaseViewModel<SusuStatisticsState, SusuStatisticsEffect>(SusuStatisticsState()) {
+
+    fun initAge() {
+        viewModelScope.launch {
+            val userAge = getUserUseCase.invoke().getOrNull()?.birth?.toStatisticsAge() ?: StatisticsAge.TWENTY
+            intent {
+                copy(
+                    age = userAge
+                )
+            }
+        }
+    }
 
     fun checkAdditionalInfo() {
         viewModelScope.launch {

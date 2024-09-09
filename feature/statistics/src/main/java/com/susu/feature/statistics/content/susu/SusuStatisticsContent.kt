@@ -124,6 +124,7 @@ fun SusuStatisticsRoute(
     LaunchedEffect(key1 = Unit) {
         viewModel.checkAdditionalInfo()
         viewModel.getStatisticsOption()
+        viewModel.initAge()
     }
 
     LaunchedEffect(key1 = uiState.age, key2 = uiState.category, key3 = uiState.relationship) {
