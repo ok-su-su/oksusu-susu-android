@@ -25,6 +25,7 @@ import com.susu.core.designsystem.component.appbar.icon.LogoIcon
 import com.susu.core.designsystem.component.screen.LoadingScreen
 import com.susu.core.designsystem.theme.SusuTheme
 import com.susu.core.ui.DialogToken
+import com.susu.core.ui.SnackbarToken
 import com.susu.core.ui.extension.collectWithLifecycle
 import com.susu.feature.statistics.component.StatisticsTab
 import com.susu.feature.statistics.content.my.MyStatisticsRoute
@@ -37,6 +38,7 @@ fun StatisticsRoute(
     navigateToMyInfo: () -> Unit,
     navigateToSent: () -> Unit,
     onShowDialog: (DialogToken) -> Unit,
+    onShowSnackbar: (SnackbarToken) -> Unit,
     handleException: (Throwable, () -> Unit) -> Unit,
 ) {
     val uiState by viewModel.uiState.collectAsStateWithLifecycle()
@@ -64,6 +66,7 @@ fun StatisticsRoute(
         navigateToMyInfo = navigateToMyInfo,
         navigateToSent = navigateToSent,
         onShowDialog = onShowDialog,
+        onShowSnackbar = onShowSnackbar,
         handleException = handleException,
     )
 }
@@ -76,6 +79,7 @@ fun StatisticsScreen(
     navigateToMyInfo: () -> Unit = {},
     navigateToSent: () -> Unit = {},
     onShowDialog: (DialogToken) -> Unit = {},
+    onShowSnackbar: (SnackbarToken) -> Unit = {},
     handleException: (Throwable, () -> Unit) -> Unit = { _, _ -> },
 ) {
     Box(
@@ -112,8 +116,8 @@ fun StatisticsScreen(
                         modifier = Modifier.fillMaxSize(),
                         handleException = handleException,
                         onShowDialog = onShowDialog,
+                        onShowSnackbar = onShowSnackbar,
                         navigateToMyInfo = navigateToMyInfo,
-
                     )
                 }
             }

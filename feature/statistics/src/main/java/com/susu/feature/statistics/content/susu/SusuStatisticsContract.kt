@@ -12,6 +12,7 @@ import java.util.Date
 
 sealed interface SusuStatisticsEffect : SideEffect {
     data object ShowAdditionalInfoDialog : SusuStatisticsEffect
+    data object ShowNoDataSnackbar : SusuStatisticsEffect
     data class HandleException(val throwable: Throwable, val retry: () -> Unit) : SusuStatisticsEffect
     data class LogAgeOption(val age: StatisticsAge) : SusuStatisticsEffect
     data class LogRelationshipOption(val relationship: String) : SusuStatisticsEffect

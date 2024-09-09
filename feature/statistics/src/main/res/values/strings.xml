@@ -30,4 +30,5 @@
     <string name="statistics_my_dialog_title">아직 볼 수 있는 통계가 없어요</string>
     <string name="statistics_my_dialog_description">작성된 봉투가 있는 경우 통계를 볼 수 있어요!\n정확한 데이터를 위해 약 3분 정도의 시간이 소요될 수 있어요</string>
     <string name="statistics_my_dialog_confirm">봉투 작성하기</string>
+    <string name="statistics_susu_no_data_snackbar">아직 데이터가 충분하지 않아 금액을 표시할 수 없어요</string>
 </resources>

@@ -43,7 +43,8 @@ fun SusuStatisticsOptionSlot(
     onCategoryClick: () -> Unit = {},
 ) {
     Column(
-        modifier = modifier.fillMaxWidth()
+        modifier = modifier
+            .fillMaxWidth()
             .background(color = Gray10, shape = RoundedCornerShape(4.dp))
             .padding(SusuTheme.spacing.spacing_m),
     ) {
@@ -54,7 +55,9 @@ fun SusuStatisticsOptionSlot(
         )
         Spacer(modifier = Modifier.height(SusuTheme.spacing.spacing_xxs))
         Column(
-            modifier = Modifier.fillMaxWidth().background(color = Orange10, shape = RoundedCornerShape(4.dp))
+            modifier = Modifier
+                .fillMaxWidth()
+                .background(color = Orange10, shape = RoundedCornerShape(4.dp))
                 .padding(horizontal = SusuTheme.spacing.spacing_s, vertical = SusuTheme.spacing.spacing_xxs),
         ) {
             Row(
@@ -82,7 +85,7 @@ fun SusuStatisticsOptionSlot(
             Row(
                 verticalAlignment = Alignment.Bottom,
             ) {
-                if (isBlind) {
+                if (isBlind || money == 0L) {
                     Text(
                         text = stringResource(id = R.string.word_unknown) +
                             stringResource(id = com.susu.core.designsystem.R.string.money_unit),

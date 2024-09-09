@@ -93,6 +93,11 @@ class SusuStatisticsViewModel @Inject constructor(
                 relationshipId = currentState.relationship.id.toInt(),
                 categoryId = currentState.category.id,
             ).onSuccess {
+
+                if (it.averageSent == 0L) {
+                    postSideEffect(SusuStatisticsEffect.ShowNoDataSnackbar)
+                }
+
                 intent { copy(susuStatistics = it) }
             }.onFailure {
                 postSideEffect(SusuStatisticsEffect.HandleException(it, ::getSusuStatistics))
