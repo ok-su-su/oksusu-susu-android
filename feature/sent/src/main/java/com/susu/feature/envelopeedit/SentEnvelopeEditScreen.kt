@@ -244,14 +244,16 @@ fun SentEnvelopeEditScreen(
                     categoryText = stringResource(com.susu.core.ui.R.string.word_event),
                     categoryTextAlign = Alignment.Top,
                 ) {
-                    uiState.categoryConfig.dropLast(1).forEach { category ->
-                        SusuFilledButton(
-                            color = FilledButtonColor.Orange,
-                            style = SmallButtonStyle.height32,
-                            text = category.name,
-                            isActive = category.id == uiState.categoryId,
-                            onClick = { onSelectCategory(category) },
-                        )
+                    uiState.categoryConfig.forEach { category ->
+                        if (category.isCustom.not()) {
+                            SusuFilledButton(
+                                color = FilledButtonColor.Orange,
+                                style = SmallButtonStyle.height32,
+                                text = category.name,
+                                isActive = category.id == uiState.categoryId,
+                                onClick = { onSelectCategory(category) },
+                            )
+                        }
                     }
                     if (uiState.showCustomCategory) {
                         SusuTextFieldWrapContentButton(
@@ -259,13 +261,13 @@ fun SentEnvelopeEditScreen(
                             color = TextFieldButtonColor.Orange,
                             style = SmallTextFieldButtonStyle.height32,
                             text = uiState.customCategory ?: "",
-                            isFocused = uiState.categoryId == uiState.categoryConfig.last().id,
+                            isFocused = uiState.categoryId == uiState.categoryConfig.find { it.isCustom }?.id,
                             isSaved = uiState.customCategorySaved,
                             onTextChange = onCustomCategoryUpdated,
                             onClickClearIcon = onCustomCategoryCleared,
                             onClickCloseIcon = onCloseCustomCategory,
                             onClickFilledButton = onClickCustomCategoryInnerButton,
-                            onClickButton = { onSelectCategory(uiState.categoryConfig.last()) },
+                            onClickButton = { onSelectCategory(uiState.categoryConfig.find { it.isCustom }!!) },
                         )
                     } else {
                         AddConditionButton(
@@ -291,14 +293,16 @@ fun SentEnvelopeEditScreen(
                     categoryText = stringResource(com.susu.core.ui.R.string.word_relationship),
                     categoryTextAlign = Alignment.Top,
                 ) {
-                    uiState.relationshipConfig.dropLast(1).forEach { relationship ->
-                        SusuFilledButton(
-                            color = FilledButtonColor.Orange,
-                            style = SmallButtonStyle.height32,
-                            text = relationship.relation,
-                            isActive = relationship.id == uiState.relationshipId,
-                            onClick = { onSelectRelationship(relationship) },
-                        )
+                    uiState.relationshipConfig.forEach { relationship ->
+                        if (relationship.isCustom.not()) {
+                            SusuFilledButton(
+                                color = FilledButtonColor.Orange,
+                                style = SmallButtonStyle.height32,
+                                text = relationship.relation,
+                                isActive = relationship.id == uiState.relationshipId,
+                                onClick = { onSelectRelationship(relationship) },
+                            )
+                        }
                     }
                     if (uiState.showCustomRelationship) {
                         SusuTextFieldWrapContentButton(
@@ -306,13 +310,13 @@ fun SentEnvelopeEditScreen(
                             style = SmallTextFieldButtonStyle.height32,
                             color = TextFieldButtonColor.Orange,
                             text = uiState.customRelationship ?: "",
-                            isFocused = uiState.relationshipId == uiState.relationshipConfig.last().id,
+                            isFocused = uiState.relationshipId == uiState.relationshipConfig.find { it.isCustom }?.id,
                             isSaved = uiState.customRelationshipSaved,
                             onTextChange = onCustomRelationshipUpdated,
                             onClickClearIcon = onCustomRelationshipCleared,
                             onClickCloseIcon = onCloseCustomRelationship,
                             onClickFilledButton = onClickCustomRelationshipInnerButton,
-                            onClickButton = { onSelectRelationship(uiState.relationshipConfig.last()) },
+                            onClickButton = { onSelectRelationship(uiState.relationshipConfig.find { it.isCustom }!!) },
                         )
                     } else {
                         AddConditionButton(

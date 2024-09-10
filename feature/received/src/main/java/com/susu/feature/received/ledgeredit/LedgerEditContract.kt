@@ -23,7 +23,7 @@ data class LedgerEditState(
     val showEndDateBottomSheet: Boolean = false,
     val showOnlyStartDate: Boolean = false,
 ) : UiState {
-    val isSelectedCustomCategory = selectedCategoryId == categoryConfigList.last().id
+    val isSelectedCustomCategory = categoryConfigList.find { it.id == selectedCategoryId }?.isCustom ?: false
     val saveButtonEnabled = when {
         name.isEmpty() -> false
         endYear == null -> false

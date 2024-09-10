@@ -32,8 +32,8 @@ class CategoryViewModel @Inject constructor(
             .onSuccess {
                 intent {
                     copy(
-                        categoryConfig = it.dropLast(1).toPersistentList(),
-                        customCategory = it.last(),
+                        categoryConfig = it.filter { !it.isCustom }.toPersistentList(),
+                        customCategory = it.find { it.isCustom }!!,
                     )
                 }
             }

@@ -182,14 +182,16 @@ fun LedgerEditScreen(
                             verticalArrangement = Arrangement.spacedBy(SusuTheme.spacing.spacing_xxs),
                             horizontalArrangement = Arrangement.spacedBy(SusuTheme.spacing.spacing_xxs),
                         ) {
-                            uiState.categoryConfigList.dropLast(1).forEach { categoryConfig ->
-                                SusuFilledButton(
-                                    isActive = categoryConfig.id == uiState.selectedCategoryId,
-                                    color = FilledButtonColor.Orange,
-                                    style = SmallButtonStyle.height32,
-                                    text = categoryConfig.name,
-                                    onClick = { onClickCategoryButton(categoryConfig.id) },
-                                )
+                            uiState.categoryConfigList.forEach { categoryConfig ->
+                                if (categoryConfig.isCustom.not()) {
+                                    SusuFilledButton(
+                                        isActive = categoryConfig.id == uiState.selectedCategoryId,
+                                        color = FilledButtonColor.Orange,
+                                        style = SmallButtonStyle.height32,
+                                        text = categoryConfig.name,
+                                        onClick = { onClickCategoryButton(categoryConfig.id) },
+                                    )
+                                }
                             }
 
                             if (uiState.showCustomCategoryButton) {
@@ -199,12 +201,12 @@ fun LedgerEditScreen(
                                     color = TextFieldButtonColor.Orange,
                                     style = SmallTextFieldButtonStyle.height32,
                                     text = uiState.customCategory,
-                                    isFocused = uiState.categoryConfigList.last().id == uiState.selectedCategoryId,
+                                    isFocused = uiState.isSelectedCustomCategory,
                                     isSaved = uiState.isCustomCategoryChipSaved,
                                     onClickClearIcon = onClickCustomCategoryClearIcon,
                                     onClickCloseIcon = onClickCustomCategoryCloseIcon,
                                     onClickFilledButton = onClickCustomCategoryInnerButton,
-                                    onClickButton = { onClickCategoryButton(uiState.categoryConfigList.last().id) },
+                                    onClickButton = { onClickCategoryButton(uiState.categoryConfigList.find { it.isCustom }?.id ?: 5) },
                                 )
                             } else {
                                 AddConditionButton(onClick = onClickAddConditionButton)

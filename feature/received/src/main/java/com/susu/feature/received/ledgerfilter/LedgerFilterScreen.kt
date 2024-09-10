@@ -138,8 +138,9 @@ fun LedgerFilterScreen(
         ) {
             Text(text = stringResource(R.string.ledger_filter_screen_event_category), style = SusuTheme.typography.title_xs)
             Spacer(modifier = Modifier.size(SusuTheme.spacing.spacing_m))
-            Row(
+            FlowRow(
                 horizontalArrangement = Arrangement.spacedBy(SusuTheme.spacing.spacing_xxs),
+                verticalArrangement = Arrangement.spacedBy(SusuTheme.spacing.spacing_xxs),
             ) {
                 uiState.categoryConfig.forEach { category ->
                     SusuLinedButton(
