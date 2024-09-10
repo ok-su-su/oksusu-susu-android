@@ -214,6 +214,7 @@ internal fun MainScreen(
                     navigateToMyInfo = navigator::navigateMyPageInfo,
                     navigateToSent = navigator::navigateSent,
                     onShowDialog = viewModel::onShowDialog,
+                    onShowSnackbar = viewModel::onShowSnackbar,
                     handleException = viewModel::handleException,
                 )
 

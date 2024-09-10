@@ -6,6 +6,7 @@ import androidx.navigation.NavGraphBuilder
 import androidx.navigation.NavOptions
 import androidx.navigation.compose.composable
 import com.susu.core.ui.DialogToken
+import com.susu.core.ui.SnackbarToken
 import com.susu.feature.statistics.StatisticsRoute
 
 fun NavController.navigateStatistics(navOptions: NavOptions) {
@@ -17,6 +18,7 @@ fun NavGraphBuilder.statisticsNavGraph(
     navigateToMyInfo: () -> Unit,
     navigateToSent: () -> Unit,
     onShowDialog: (DialogToken) -> Unit,
+    onShowSnackbar: (SnackbarToken) -> Unit,
     handleException: (Throwable, () -> Unit) -> Unit,
 ) {
     composable(route = StatisticsRoute.route) {
@@ -25,6 +27,7 @@ fun NavGraphBuilder.statisticsNavGraph(
             navigateToMyInfo = navigateToMyInfo,
             navigateToSent = navigateToSent,
             onShowDialog = onShowDialog,
+            onShowSnackbar = onShowSnackbar,
             handleException = handleException,
         )
     }

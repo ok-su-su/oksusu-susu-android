@@ -44,6 +44,7 @@ import com.susu.core.designsystem.theme.Gray100
 import com.susu.core.designsystem.theme.Gray40
 import com.susu.core.designsystem.theme.SusuTheme
 import com.susu.core.ui.DialogToken
+import com.susu.core.ui.SnackbarToken
 import com.susu.core.ui.extension.collectWithLifecycle
 import com.susu.feature.statistics.R
 import com.susu.feature.statistics.component.RecentSpentGraph
@@ -60,6 +61,7 @@ fun SusuStatisticsRoute(
     viewModel: SusuStatisticsViewModel = hiltViewModel(),
     navigateToMyInfo: () -> Unit,
     onShowDialog: (DialogToken) -> Unit,
+    onShowSnackbar: (SnackbarToken) -> Unit,
     handleException: (Throwable, () -> Unit) -> Unit,
 ) {
     val uiState by viewModel.uiState.collectAsStateWithLifecycle()
@@ -110,6 +112,12 @@ fun SusuStatisticsRoute(
                     onConfirmRequest = navigateToMyInfo,
                 ),
             )
+
+            SusuStatisticsEffect.ShowNoDataSnackbar -> onShowSnackbar(
+                SnackbarToken(
+                    message = context.getString(R.string.statistics_susu_no_data_snackbar),
+                ),
+            )
         }
     }
 
@@ -124,6 +132,7 @@ fun SusuStatisticsRoute(
     LaunchedEffect(key1 = Unit) {
         viewModel.checkAdditionalInfo()
         viewModel.getStatisticsOption()
+        viewModel.initAge()
     }
 
     LaunchedEffect(key1 = uiState.age, key2 = uiState.category, key3 = uiState.relationship) {
@@ -210,7 +219,7 @@ fun SusuStatisticsScreen(
 
             RecentSpentGraph(
                 isActive = !uiState.isBlind,
-                graphTitle = stringResource(R.string.statistics_susu_this_year_spent),
+                graphTitle = stringResource(R.string.statistics_recent_6_total_money),
                 spentData = uiState.susuStatistics.recentSpent.toPersistentList(),
                 maximumAmount = uiState.susuStatistics.recentMaximumSpent,
                 totalAmount = uiState.susuStatistics.recentTotalSpent,
@@ -260,7 +269,9 @@ fun SusuStatisticsScreen(
         }
 
         PullToRefreshContainer(
-            modifier = Modifier.align(Alignment.TopCenter).offset(y = -(120).dp),
+            modifier = Modifier
+                .align(Alignment.TopCenter)
+                .offset(y = -(120).dp),
             state = refreshState,
             containerColor = Gray10,
         )
