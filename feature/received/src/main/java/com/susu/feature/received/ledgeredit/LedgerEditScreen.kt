@@ -183,7 +183,7 @@ fun LedgerEditScreen(
                             horizontalArrangement = Arrangement.spacedBy(SusuTheme.spacing.spacing_xxs),
                         ) {
                             uiState.categoryConfigList.forEach { categoryConfig ->
-                                if (categoryConfig.id != 5) {
+                                if (categoryConfig.isCustom.not()) {
                                     SusuFilledButton(
                                         isActive = categoryConfig.id == uiState.selectedCategoryId,
                                         color = FilledButtonColor.Orange,
