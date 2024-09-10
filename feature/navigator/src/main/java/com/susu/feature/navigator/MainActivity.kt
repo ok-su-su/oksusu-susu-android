@@ -72,6 +72,9 @@ class MainActivity : ComponentActivity() {
             ContextCompat.RECEIVER_EXPORTED,
         )
 
+        val versionName = applicationContext.packageManager.getPackageInfo(packageName, 0).versionName
+        viewModel.checkForceUpdate(versionName)
+
         setContent {
             SusuTheme {
                 MainScreen(

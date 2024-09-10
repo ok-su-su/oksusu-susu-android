@@ -1,6 +1,8 @@
 package com.susu.feature.navigator
 
+import android.app.Activity
 import android.content.Intent
+import android.net.Uri
 import androidx.compose.animation.AnimatedVisibility
 import androidx.compose.animation.EnterTransition
 import androidx.compose.animation.ExitTransition
@@ -30,6 +32,7 @@ import com.susu.core.designsystem.component.dialog.SusuDialog
 import com.susu.core.designsystem.component.navigation.SusuNavigationBar
 import com.susu.core.designsystem.component.navigation.SusuNavigationItem
 import com.susu.core.designsystem.component.snackbar.SusuSnackbar
+import com.susu.core.ui.SUSU_GOOGLE_PLAY_STORE_URL
 import com.susu.core.ui.SnackbarToken
 import com.susu.core.ui.extension.collectWithLifecycle
 import com.susu.feature.community.navigation.CommunityRoute
@@ -68,6 +71,15 @@ internal fun MainScreen(
                         actionIconContentDescription = context.getString(com.susu.core.ui.R.string.content_description_refresh),
                     ),
                 )
+            }
+
+            MainSideEffect.NavigatePlayStore -> {
+                val intent = Intent(Intent.ACTION_VIEW).apply {
+                    data = Uri.parse(SUSU_GOOGLE_PLAY_STORE_URL)
+                    setPackage("com.android.vending") // Google Play 스토어 앱으로 연결되게 함.
+                }
+                context.startActivity(intent)
+                (context as Activity).finish()
             }
         }
     }
