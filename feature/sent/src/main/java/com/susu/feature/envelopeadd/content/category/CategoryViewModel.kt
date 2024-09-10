@@ -32,7 +32,7 @@ class CategoryViewModel @Inject constructor(
         getCategoryConfigUseCase().onSuccess {
             intent {
                 copy(
-                    categoryConfig = it.dropLast(1).toPersistentList(),
+                    categoryConfig = it.filter { !it.isCustom }.toPersistentList(),
                 )
             }
         }

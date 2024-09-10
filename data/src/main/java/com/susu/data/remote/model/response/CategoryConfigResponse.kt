@@ -9,6 +9,9 @@ data class CategoryConfigResponse(
     val seq: Int,
     val name: String,
     val style: String,
+    val isActive: Boolean,
+    val isCustom: Boolean,
+    val isMiscCategory: Boolean
 )
 
 internal fun CategoryConfigResponse.toModel() = Category(
@@ -16,4 +19,6 @@ internal fun CategoryConfigResponse.toModel() = Category(
     seq = seq,
     name = name,
     style = style,
+    isCustom = isCustom,
+    isActive = isActive
 )

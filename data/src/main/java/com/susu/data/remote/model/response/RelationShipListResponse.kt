@@ -12,6 +12,7 @@ data class RelationShipListResponse(
 data class RelationConfigShipResponse(
     val id: Long,
     val relation: String,
+    val isCustom: Boolean = false,
 )
 
 internal fun RelationShipListResponse.toModel() = relationships.map { it.toModel() }
@@ -19,4 +20,5 @@ internal fun RelationShipListResponse.toModel() = relationships.map { it.toModel
 internal fun RelationConfigShipResponse.toModel() = Relationship(
     id = id,
     relation = relation,
+    isCustom = isCustom
 )

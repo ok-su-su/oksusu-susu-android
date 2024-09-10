@@ -12,4 +12,6 @@ data class Category(
     val category: String = "",
     val customCategory: String? = null,
     val style: String = "",
+    val isCustom: Boolean = false,
+    val isActive: Boolean = true,
 )

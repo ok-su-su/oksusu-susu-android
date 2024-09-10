@@ -132,7 +132,7 @@ class LedgerEditViewModel @Inject constructor(
                 showCustomCategoryButton = true,
             )
         }
-        updateCategory(currentState.categoryConfigList.last().id)
+        updateCategory(currentState.categoryConfigList.find { it.isCustom }?.id ?: 5)
         postSideEffect(LedgerEditSideEffect.FocusCustomCategory)
     }
 

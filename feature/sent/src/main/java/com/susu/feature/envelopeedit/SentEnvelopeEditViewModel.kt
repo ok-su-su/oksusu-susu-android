@@ -60,10 +60,10 @@ class SentEnvelopeEditViewModel @Inject constructor(
                             phoneNumber = friend.phoneNumber.ifEmpty { null },
                             categoryId = category.id,
                             customCategory = category.customCategory,
-                            showCustomCategory = category.id == categoryConfig.last().id,
-                            customCategorySaved = category.id == categoryConfig.last().id,
-                            showCustomRelationship = relationship.id == relationshipConfig.last().id,
-                            customRelationshipSaved = relationship.id == relationshipConfig.last().id,
+                            showCustomCategory = category.id == categoryConfig.find { it.isCustom }?.id,
+                            customCategorySaved = category.id == categoryConfig.find { it.isCustom }?.id,
+                            showCustomRelationship = relationship.id == relationshipConfig.find { it.isCustom }?.id,
+                            customRelationshipSaved = relationship.id == relationshipConfig.find { it.isCustom }?.id,
                         )
                     }
                 }
@@ -197,7 +197,7 @@ class SentEnvelopeEditViewModel @Inject constructor(
         intent {
             copy(
                 showCustomCategory = true,
-                categoryId = categoryConfig.last().id,
+                categoryId = categoryConfig.find { it.isCustom }?.id ?: 5,
                 customCategorySaved = false,
             )
         }
@@ -212,7 +212,7 @@ class SentEnvelopeEditViewModel @Inject constructor(
 
     fun hideCustomCategoryInput() {
         intent { copy(showCustomCategory = false) }
-        if (currentState.categoryId == currentState.categoryConfig.last().id) {
+        if (currentState.categoryId == (currentState.categoryConfig.find { it.isCustom }?.id ?: 5)) {
             intent { copy(categoryId = null) }
         }
     }
@@ -221,7 +221,7 @@ class SentEnvelopeEditViewModel @Inject constructor(
         intent {
             copy(
                 showCustomRelationship = true,
-                relationshipId = relationshipConfig.last().id,
+                relationshipId = relationshipConfig.find { it.isCustom }?.id ?: 5,
                 customRelationshipSaved = false,
             )
         }
@@ -236,7 +236,7 @@ class SentEnvelopeEditViewModel @Inject constructor(
 
     fun hideCustomRelationshipInput() {
         intent { copy(showCustomRelationship = false) }
-        if (currentState.relationshipId == currentState.relationshipConfig.last().id) {
+        if (currentState.relationshipId == (currentState.relationshipConfig.find { it.isCustom }?.id ?: 5)) {
             intent { copy(relationshipId = null) }
         }
     }

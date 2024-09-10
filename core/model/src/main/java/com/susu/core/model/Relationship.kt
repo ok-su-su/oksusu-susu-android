@@ -10,4 +10,5 @@ data class Relationship(
     val relation: String = "",
     val customRelation: String? = null,
     val description: String? = null,
+    val isCustom: Boolean = false,
 )
