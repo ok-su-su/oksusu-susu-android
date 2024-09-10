@@ -11,6 +11,7 @@ import com.susu.domain.usecase.categoryconfig.GetCategoryConfigUseCase
 import com.susu.domain.usecase.loginsignup.CheckCanRegisterUseCase
 import com.susu.domain.usecase.loginsignup.CheckShowOnboardVoteUseCase
 import com.susu.domain.usecase.loginsignup.LoginUseCase
+import com.susu.domain.usecase.version.CheckForceUpdateUseCase
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
@@ -25,6 +26,7 @@ class MainViewModel @Inject constructor(
     private val checkCanRegisterUseCase: CheckCanRegisterUseCase,
     private val checkShowOnboardVoteUseCase: CheckShowOnboardVoteUseCase,
     private val getCategoryConfigUseCase: GetCategoryConfigUseCase,
+    private val checkForceUpdateUseCase: CheckForceUpdateUseCase,
 ) : BaseViewModel<MainState, MainSideEffect>(MainState()) {
     companion object {
         private const val NAVIGATE_DELAY = 500L
@@ -91,6 +93,26 @@ class MainViewModel @Inject constructor(
             postSideEffect(MainSideEffect.NavigateSignup)
         } else {
             login(kakaoAccessToken)
+        }
+    }
+
+    fun checkForceUpdate(versionName: String) {
+        viewModelScope.launch {
+            checkForceUpdateUseCase(versionName).onSuccess { needed ->
+                // TODO: 하드코딩 제거
+                if (needed) {
+                    onShowDialog(
+                        DialogToken(
+                            title = "업데이트가 필요해요",
+                            text = "새로운 버전의 수수를 다운로드해주세요",
+                            confirmText = "스토어로 이동하기",
+                            onConfirmRequest = {
+                                postSideEffect(MainSideEffect.NavigatePlayStore)
+                            },
+                        ),
+                    )
+                }
+            }
         }
     }
 

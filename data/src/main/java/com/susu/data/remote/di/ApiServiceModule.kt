@@ -13,6 +13,7 @@ import com.susu.data.remote.api.StatisticsService
 import com.susu.data.remote.api.TermService
 import com.susu.data.remote.api.TokenService
 import com.susu.data.remote.api.UserService
+import com.susu.data.remote.api.VersionService
 import com.susu.data.remote.api.VoteService
 import dagger.Module
 import dagger.Provides
@@ -108,4 +109,11 @@ object ApiServiceModule {
     fun providesOnboardService(retrofit: Retrofit): OnboardService {
         return retrofit.create(OnboardService::class.java)
     }
+
+    @Singleton
+    @Provides
+    fun providesVersionService(retrofit: Retrofit): VersionService {
+        return retrofit.create(VersionService::class.java)
+    }
+
 }

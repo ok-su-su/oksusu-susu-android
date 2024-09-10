@@ -16,6 +16,7 @@ import com.susu.data.data.repository.StatisticsRepositoryImpl
 import com.susu.data.data.repository.TermRepositoryImpl
 import com.susu.data.data.repository.TokenRepositoryImpl
 import com.susu.data.data.repository.UserRepositoryImpl
+import com.susu.data.data.repository.VersionRepositoryImpl
 import com.susu.data.data.repository.VoteRecentSearchRepositoryImpl
 import com.susu.data.data.repository.VoteRepositoryImpl
 import com.susu.domain.repository.BlockRepository
@@ -34,6 +35,7 @@ import com.susu.domain.repository.StatisticsRepository
 import com.susu.domain.repository.TermRepository
 import com.susu.domain.repository.TokenRepository
 import com.susu.domain.repository.UserRepository
+import com.susu.domain.repository.VersionRepository
 import com.susu.domain.repository.VoteRecentSearchRepository
 import com.susu.domain.repository.VoteRepository
 import dagger.Binds
@@ -134,4 +136,9 @@ abstract class RepositoryModule {
     abstract fun bindOnboardRepository(
         onboardRepositoryImpl: OnboardRepositoryImpl,
     ): OnboardRepository
+
+    @Binds
+    abstract fun bindVersionRepository(
+        versionRepositoryImpl: VersionRepositoryImpl,
+    ): VersionRepository
 }
