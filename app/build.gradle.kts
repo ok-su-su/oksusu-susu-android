@@ -13,8 +13,8 @@ android {
 
     defaultConfig {
         applicationId = "com.oksusu.susu"
-        versionCode = 6
-        versionName = "1.0.3"
+        versionCode = 7
+        versionName = "1.0.4"
         buildConfigField("String", "KAKAO_APP_KEY", getApiKey("KAKAO_APP_KEY"))
         manifestPlaceholders["KAKAO_APP_KEY"] = "kakao${getApiKey("KAKAO_REDIRECT_KEY")}"
     }
