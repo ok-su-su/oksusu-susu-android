@@ -28,7 +28,7 @@ class ExcelRepositoryImpl @Inject constructor(
     }
 
     companion object {
-        private const val url = "https://api.oksusu.site/api/v1/excel/all-envelopes"
+        private const val url = "https://api.oksusu.biz/api/v1/excel/all-envelopes"
         private const val mimeType = "application/vnd.ms-excel"
         private const val downloaderName = "수수"
         private const val headerTokenName = "X-SUSU-AUTH-TOKEN"
