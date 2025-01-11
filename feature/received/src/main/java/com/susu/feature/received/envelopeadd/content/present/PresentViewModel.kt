@@ -1,7 +1,6 @@
 package com.susu.feature.received.envelopeadd.content.present
 
 import androidx.lifecycle.viewModelScope
-import com.susu.core.ui.USER_INPUT_REGEX_LONG
 import com.susu.core.ui.base.BaseViewModel
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.delay
@@ -13,11 +12,11 @@ class PresentViewModel @Inject constructor() : BaseViewModel<PresentState, Prese
     PresentState(),
 ) {
     fun updatePresent(present: String?) {
-        if (present != null && !USER_INPUT_REGEX_LONG.matches(present)) {
+        if (present != null) {
             if (present.length > 30) {
                 postSideEffect(PresentSideEffect.ShowNotValidSnackbar)
+                return
             }
-            return
         }
 
         intent {

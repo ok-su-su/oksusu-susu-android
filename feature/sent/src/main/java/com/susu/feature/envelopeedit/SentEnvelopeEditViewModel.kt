@@ -5,9 +5,6 @@ import androidx.lifecycle.viewModelScope
 import com.susu.core.model.EnvelopeDetail
 import com.susu.core.ui.MONEY_MAX_VALUE
 import com.susu.core.ui.PHONE_NUM_REGEX
-import com.susu.core.ui.USER_INPUT_REGEX
-import com.susu.core.ui.USER_INPUT_REGEX_INCLUDE_NUMBER
-import com.susu.core.ui.USER_INPUT_REGEX_LONG
 import com.susu.core.ui.base.BaseViewModel
 import com.susu.core.ui.extension.decodeFromUri
 import com.susu.core.ui.util.getSafeLocalDateTime
@@ -113,11 +110,11 @@ class SentEnvelopeEditViewModel @Inject constructor(
     }
 
     fun updateGift(gift: String?) {
-        if (gift != null && !USER_INPUT_REGEX_LONG.matches(gift)) {
+        if (gift != null) {
             if (gift.length > 30) {
                 postSideEffect(SentEnvelopeEditSideEffect.ShowPresentNotValidSnackbar)
+                return
             }
-            return
         }
         intent { copy(gift = gift?.ifEmpty { null }) }
     }
@@ -145,12 +142,11 @@ class SentEnvelopeEditViewModel @Inject constructor(
     }
 
     fun updateFriendName(name: String) {
-        if (!USER_INPUT_REGEX.matches(name)) {
-            if (name.length > 10) {
-                postSideEffect(SentEnvelopeEditSideEffect.ShowNameNotValidSnackbar)
-            }
+        if (name.length > 10) {
+            postSideEffect(SentEnvelopeEditSideEffect.ShowNameNotValidSnackbar)
             return
         }
+
         intent { copy(friendName = name) }
     }
 
@@ -159,12 +155,11 @@ class SentEnvelopeEditViewModel @Inject constructor(
     }
 
     fun updateCustomRelationship(customRelationship: String) {
-        if (!USER_INPUT_REGEX.matches(customRelationship)) {
-            if (customRelationship.length > 10) {
-                postSideEffect(SentEnvelopeEditSideEffect.ShowRelationshipNotValidSnackbar)
-            }
+        if (customRelationship.length > 10) {
+            postSideEffect(SentEnvelopeEditSideEffect.ShowRelationshipNotValidSnackbar)
             return
         }
+
         intent { copy(customRelationship = customRelationship) }
     }
 
@@ -184,11 +179,11 @@ class SentEnvelopeEditViewModel @Inject constructor(
     }
 
     fun updateCustomCategory(customCategory: String?) {
-        if (customCategory != null && !USER_INPUT_REGEX_INCLUDE_NUMBER.matches(customCategory)) {
+        if (customCategory != null) {
             if (customCategory.length > 10) {
                 postSideEffect(SentEnvelopeEditSideEffect.ShowCategoryNotValidSnackbar)
+                return
             }
-            return
         }
         intent { copy(customCategory = customCategory) }
     }

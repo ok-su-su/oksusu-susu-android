@@ -2,7 +2,6 @@ package com.susu.feature.received.envelopeadd.content.relationship
 
 import androidx.lifecycle.viewModelScope
 import com.susu.core.model.Relationship
-import com.susu.core.ui.USER_INPUT_REGEX
 import com.susu.core.ui.base.BaseViewModel
 import com.susu.domain.usecase.envelope.GetRelationShipConfigListUseCase
 import dagger.hilt.android.lifecycle.HiltViewModel
@@ -53,11 +52,9 @@ class RelationShipViewModel @Inject constructor(
     }
 
     fun updateCustomRelationShipText(text: String) {
-        if (!USER_INPUT_REGEX.matches(text)) { // 한글, 영문 0~10 글자
-            if (text.length > 10) { // 길이 넘친 경우
-                postSideEffect(RelationShipSideEffect.ShowNotValidSnackbar)
-            }
-            return // 특수문자는 입력 안 됨
+        if (text.length > 10) {
+            postSideEffect(RelationShipSideEffect.ShowNotValidSnackbar)
+            return
         }
 
         intent {

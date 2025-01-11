@@ -6,9 +6,6 @@ import com.susu.core.model.Envelope
 import com.susu.core.model.Ledger
 import com.susu.core.model.Relationship
 import com.susu.core.ui.PHONE_NUM_REGEX
-import com.susu.core.ui.USER_INPUT_REGEX
-import com.susu.core.ui.USER_INPUT_REGEX_INCLUDE_NUMBER
-import com.susu.core.ui.USER_INPUT_REGEX_LONG
 import com.susu.core.ui.base.BaseViewModel
 import com.susu.core.ui.extension.decodeFromUri
 import com.susu.domain.usecase.envelope.EditReceivedEnvelopeUseCase
@@ -105,10 +102,8 @@ class ReceivedEnvelopeEditViewModel @Inject constructor(
     }
 
     fun updateName(name: String) {
-        if (!USER_INPUT_REGEX.matches(name)) {
-            if (name.length > 10) {
-                postSideEffect(ReceivedEnvelopeEditSideEffect.ShowNameNotValidSnackbar)
-            }
+        if (name.length > 10) {
+            postSideEffect(ReceivedEnvelopeEditSideEffect.ShowNameNotValidSnackbar)
             return
         }
 
@@ -126,11 +121,11 @@ class ReceivedEnvelopeEditViewModel @Inject constructor(
     }
 
     fun updateCustomRelation(customRelation: String?) {
-        if (customRelation != null && !USER_INPUT_REGEX_INCLUDE_NUMBER.matches(customRelation)) {
+        if (customRelation != null) {
             if (customRelation.length > 10) {
                 postSideEffect(ReceivedEnvelopeEditSideEffect.ShowRelationshipNotValidSnackbar)
+                return
             }
-            return
         }
 
         intent {
@@ -194,10 +189,8 @@ class ReceivedEnvelopeEditViewModel @Inject constructor(
     }
 
     fun updateGift(gift: String) {
-        if (gift != null && !USER_INPUT_REGEX_LONG.matches(gift)) {
-            if (gift.length > 30) {
-                postSideEffect(ReceivedEnvelopeEditSideEffect.ShowPresentNotValidSnackbar)
-            }
+        if (gift.length > 30) {
+            postSideEffect(ReceivedEnvelopeEditSideEffect.ShowPresentNotValidSnackbar)
             return
         }
 
