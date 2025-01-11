@@ -47,8 +47,8 @@ class DateViewModel @Inject constructor(
             postSideEffect(DateSideEffect.UpdateParentDate(toUpdateStartAt, toUpdateStartAt))
             copy(startAt = toUpdateStartAt)
         } else {
-            postSideEffect(DateSideEffect.UpdateParentDate(toUpdateStartAt, endAt))
-            copy(startAt = toUpdateStartAt)
+            postSideEffect(DateSideEffect.UpdateParentDate(toUpdateStartAt, toUpdateStartAt.plusDays(3)))
+            copy(startAt = toUpdateStartAt, endAt = toUpdateStartAt.plusDays(3))
         }
     }
 
@@ -72,10 +72,10 @@ class DateViewModel @Inject constructor(
                 endAt = null,
             )
         } else {
-            postSideEffect(DateSideEffect.UpdateParentDate(startAt, startAt))
+            postSideEffect(DateSideEffect.UpdateParentDate(startAt, startAt?.plusDays(3)))
             copy(
                 showOnlyStartAt = true,
-                endAt = startAt,
+                endAt = startAt?.plusDays(3),
             )
         }
     }
