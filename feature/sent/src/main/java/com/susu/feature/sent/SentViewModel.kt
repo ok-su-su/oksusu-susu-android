@@ -53,18 +53,17 @@ class SentViewModel @Inject constructor(
                 ),
             ).onSuccess { envelopesList ->
                 page++
-                val newEnvelopesList = currentList.plus(
-                    envelopesList.mapNotNull {
-                        if (it.friend.id in currentState.friendIdsForDefend) {
-                            null
-                        } else {
-                            it.toState()
-                        }
-                    },
-                ).toPersistentList()
+                val friendIds = currentList.map { it.friend.id }.toHashSet()
+                val newEnvelopesList = currentList + envelopesList.mapNotNull {
+                    if (it.friend.id in friendIds) {
+                        null
+                    } else {
+                        it.toState()
+                    }
+                }
                 intent {
                     copy(
-                        envelopesList = newEnvelopesList,
+                        envelopesList = newEnvelopesList.toPersistentList(),
                         showEmptyEnvelopes = newEnvelopesList.isEmpty(),
                     )
                 }
