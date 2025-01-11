@@ -21,6 +21,8 @@ data class SentState(
     val showAlignBottomSheet: Boolean = false,
 ) : UiState {
     val isFiltered = fromAmount != null || toAmount != null || selectedFriendList.isNotEmpty()
+    val friendIdsForDefend
+        get() = envelopesList.map { it.friend.id }.toHashSet()
 }
 
 data class FriendStatisticsState(
