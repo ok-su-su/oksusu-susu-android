@@ -5,6 +5,7 @@ import androidx.lifecycle.viewModelScope
 import com.susu.core.ui.base.BaseViewModel
 import com.susu.domain.usecase.envelope.GetEnvelopesHistoryListUseCase
 import com.susu.domain.usecase.envelope.GetEnvelopesListUseCase
+import com.susu.domain.usecase.friend.DeleteFriendUseCase
 import com.susu.feature.sent.navigation.SentRoute
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.collections.immutable.toPersistentList
@@ -15,6 +16,7 @@ import javax.inject.Inject
 class SentEnvelopeViewModel @Inject constructor(
     private val getEnvelopesListUseCase: GetEnvelopesListUseCase,
     private val getEnvelopesHistoryListUseCase: GetEnvelopesHistoryListUseCase,
+    private val deleteFriendUseCase: DeleteFriendUseCase,
     savedStateHandle: SavedStateHandle,
 ) : BaseViewModel<SentEnvelopeState, SentEnvelopeSideEffect>(
     SentEnvelopeState(),
@@ -55,6 +57,12 @@ class SentEnvelopeViewModel @Inject constructor(
                     envelopeHistoryList = history.toPersistentList(),
                 )
             }
+        }
+    }
+
+    fun deleteFriend() = viewModelScope.launch {
+        deleteFriendUseCase(friendId).onSuccess {
+            postSideEffect(SentEnvelopeSideEffect.PopBackStackWithDeleteFriendId(friendId))
         }
     }
 

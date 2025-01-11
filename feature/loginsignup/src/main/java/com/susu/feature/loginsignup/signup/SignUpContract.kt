@@ -18,6 +18,7 @@ sealed interface SignUpEffect : SideEffect {
 data class SignUpState(
     val isLoading: Boolean = false,
     val currentStep: SignUpStep = SignUpStep.TERMS,
+    val localTermAgreed: Boolean = false,
     val agreedTerms: PersistentSet<Int> = persistentSetOf(),
     val name: String = "",
     val isNameValid: Boolean = true,

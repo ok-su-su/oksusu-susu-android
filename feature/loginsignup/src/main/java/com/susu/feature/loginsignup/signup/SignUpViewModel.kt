@@ -52,12 +52,16 @@ class SignUpViewModel @Inject constructor(
         intent { copy(agreedTerms = agreedTerms.remove(termId)) }
     }
 
+    fun updateLocalTermAgreed(agree: Boolean) {
+        intent { copy(localTermAgreed = agree) }
+    }
+
     fun agreeAllTerms(entireTermIds: List<Int>) {
-        intent { copy(agreedTerms = entireTermIds.toPersistentSet()) }
+        intent { copy(agreedTerms = entireTermIds.toPersistentSet(), localTermAgreed = true) }
     }
 
     fun disagreeAllTerms() {
-        intent { copy(agreedTerms = persistentSetOf()) }
+        intent { copy(agreedTerms = persistentSetOf(), localTermAgreed = false) }
     }
 
     fun goNextStep() {

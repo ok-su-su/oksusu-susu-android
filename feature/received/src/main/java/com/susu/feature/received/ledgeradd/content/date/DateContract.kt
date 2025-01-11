@@ -12,7 +12,7 @@ data class DateState(
     val categoryName: String = "",
     val showEndAt: Boolean = true,
     val startAt: LocalDateTime? = currentDate,
-    val endAt: LocalDateTime? = null,
+    val endAt: LocalDateTime? = currentDate.plusDays(3),
     val showStartDateBottomSheet: Boolean = false,
     val showEndDateBottomSheet: Boolean = false,
     val showOnlyStartAt: Boolean = false,

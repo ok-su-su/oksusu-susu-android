@@ -43,4 +43,8 @@ class FriendRepositoryImpl @Inject constructor(
             customRelation = customRelation,
         ),
     ).getOrThrow()
+
+    override suspend fun deleteFriends(ids: List<Long>) {
+        friendService.deleteFriends(ids = ids).getOrThrow()
+    }
 }
