@@ -36,6 +36,7 @@ import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import com.susu.core.designsystem.component.appbar.SusuDefaultAppBar
 import com.susu.core.designsystem.component.appbar.icon.BackIcon
+import com.susu.core.designsystem.component.appbar.icon.DeleteText
 import com.susu.core.designsystem.component.badge.BadgeColor
 import com.susu.core.designsystem.component.badge.BadgeStyle
 import com.susu.core.designsystem.component.badge.SusuBadge
@@ -112,6 +113,7 @@ fun SentEnvelopeRoute(
         onClickBackIcon = viewModel::popBackStack,
         onClickEnvelopeDetail = viewModel::navigateSentEnvelopeDetail,
         onClickAddEnvelope = viewModel::navigateSentEnvelopeAdd,
+        onClickDeleteFriend = viewModel::deleteFriend,
     )
 }
 
@@ -125,6 +127,7 @@ fun SentEnvelopeScreen(
     onClickBackIcon: () -> Unit = {},
     onClickEnvelopeDetail: (Long) -> Unit = {},
     onClickAddEnvelope: () -> Unit = {},
+    onClickDeleteFriend: () -> Unit = {}
 ) {
     val sent = uiState.envelopeInfo.sentAmounts
     val received = uiState.envelopeInfo.receivedAmounts
@@ -139,10 +142,14 @@ fun SentEnvelopeScreen(
     ) {
         Column {
             SusuDefaultAppBar(
+                modifier = Modifier.padding(end = SusuTheme.spacing.spacing_m),
                 leftIcon = {
                     BackIcon(onClickBackIcon)
                 },
                 title = uiState.envelopeInfo.friend.name,
+                actions = {
+                    DeleteText(onClickDeleteFriend)
+                }
             )
 
             Column(

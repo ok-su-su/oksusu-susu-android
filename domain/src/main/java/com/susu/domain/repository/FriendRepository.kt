@@ -21,4 +21,8 @@ interface FriendRepository {
         relationshipId: Long,
         customRelation: String? = null,
     )
+
+    suspend fun deleteFriends(
+        ids: List<Long>
+    )
 }
