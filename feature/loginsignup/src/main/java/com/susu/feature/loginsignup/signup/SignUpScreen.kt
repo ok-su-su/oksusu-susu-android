@@ -91,7 +91,7 @@ fun SignUpRoute(
             uiState = uiState,
             termState = termState,
             isNextStepActive = when (uiState.currentStep) {
-                SignUpStep.TERMS -> uiState.agreedTerms.containsAll(termState.terms.filter { it.isEssential }.map { it.id })
+                SignUpStep.TERMS -> uiState.localTermAgreed && uiState.agreedTerms.containsAll(termState.terms.filter { it.isEssential }.map { it.id })
                 SignUpStep.TERM_DETAIL -> true
                 SignUpStep.NAME -> uiState.isNameValid && uiState.name.isNotEmpty()
                 SignUpStep.ADDITIONAL -> true
@@ -130,6 +130,7 @@ fun SignUpRoute(
                             descriptionText = targetState.description?.let { stringResource(id = it) } ?: "",
                             terms = termState.terms,
                             agreedTerms = uiState.agreedTerms.toPersistentList(),
+                            localTermAgreed = uiState.localTermAgreed,
                             onDetailClick = {
                                 termViewModel.updateCurrentTerm(it)
                                 viewModel.goTermDetail()
@@ -144,6 +145,9 @@ fun SignUpRoute(
                             onTermChecked = { agree, id ->
                                 if (agree) viewModel.agreeTerm(id) else viewModel.disagreeTerm(id)
                             },
+                            onLocalTermChecked = { agree ->
+                                viewModel.updateLocalTermAgreed(agree)
+                            }
                         )
                     }
 

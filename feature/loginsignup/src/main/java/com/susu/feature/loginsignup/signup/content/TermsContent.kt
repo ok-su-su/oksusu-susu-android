@@ -34,9 +34,11 @@ fun TermsContent(
     descriptionText: String = "",
     terms: List<Term> = emptyList(),
     agreedTerms: List<Int> = emptyList(),
+    localTermAgreed: Boolean = false,
     onDetailClick: (termId: Int) -> Unit = {},
     onSelectAll: (agree: Boolean) -> Unit = {},
     onTermChecked: (agree: Boolean, id: Int) -> Unit = { _, _ -> },
+    onLocalTermChecked: (agree: Boolean) -> Unit = {},
 ) {
     Column(
         modifier = modifier.padding(SusuTheme.spacing.spacing_m),
@@ -48,7 +50,7 @@ fun TermsContent(
         Spacer(modifier = Modifier.height(SusuTheme.spacing.spacing_xl))
         TermListItem(
             title = stringResource(com.susu.feature.loginsignup.R.string.signup_term_agree_all),
-            checked = agreedTerms.containsAll(terms.map { it.id }),
+            checked = localTermAgreed && agreedTerms.containsAll(terms.map { it.id }),
             isEssential = false,
             canRead = false,
             onCheckClick = { onSelectAll(it) },
@@ -56,6 +58,15 @@ fun TermsContent(
         HorizontalDivider(
             thickness = 1.dp,
             color = Gray30,
+        )
+        TermListItem(
+            title = stringResource(com.susu.feature.loginsignup.R.string.signup_term_over_14),
+            checked = localTermAgreed,
+            isEssential = true,
+            canRead = false,
+            onCheckClick = {
+                onLocalTermChecked(it)
+            },
         )
         terms.forEach { term ->
             TermListItem(
