@@ -97,7 +97,12 @@ class RelationshipViewModel @Inject constructor(
         }
     }
 
-    fun updateParentSelectedRelationShip(relationShip: Relationship? = parentSelectedRelationShip) = postSideEffect(
-        RelationShipSideEffect.UpdateParentSelectedRelationShip(relationShip),
-    )
+    fun updateParentSelectedRelationShip(relationShip: Relationship? = parentSelectedRelationShip) {
+        val trimmed = if (relationShip != null && relationShip.isCustom) {
+            relationShip.copy(customRelation = relationShip.customRelation?.trim())
+        } else {
+            relationShip
+        }
+        postSideEffect(RelationShipSideEffect.UpdateParentSelectedRelationShip(trimmed))
+    }
 }

@@ -98,7 +98,7 @@ class RelationShipViewModel @Inject constructor(
         }
     }
 
-    fun updateParentSelectedRelationShip(relationShip: Relationship? = parentSelectedRelationShip) = postSideEffect(
-        RelationShipSideEffect.UpdateParentSelectedRelationShip(relationShip),
-    )
+    fun updateParentSelectedRelationShip(relationShip: Relationship? = parentSelectedRelationShip) {
+        postSideEffect(RelationShipSideEffect.UpdateParentSelectedRelationShip(relationShip))
+    }
 }

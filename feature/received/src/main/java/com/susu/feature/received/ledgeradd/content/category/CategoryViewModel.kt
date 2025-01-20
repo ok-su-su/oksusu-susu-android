@@ -92,7 +92,13 @@ class CategoryViewModel @Inject constructor(
         }
     }
 
-    fun updateParentSelectedCategory(category: Category? = parentSelectedCategory) = postSideEffect(
-        CategorySideEffect.UpdateParentSelectedCategory(category),
-    )
+    fun updateParentSelectedCategory(category: Category? = parentSelectedCategory) {
+        val trimmed = if (category != null && category.isCustom) {
+            category.copy(
+                customCategory = category.customCategory?.trim(),
+                name = category.name.trim(),
+            )
+        } else category
+        postSideEffect(CategorySideEffect.UpdateParentSelectedCategory(trimmed))
+    }
 }
