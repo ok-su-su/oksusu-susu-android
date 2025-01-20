@@ -200,9 +200,16 @@ class SentEnvelopeEditViewModel @Inject constructor(
     }
 
     fun toggleCustomCategoryInputSaved() = intent {
-        copy(
-            customCategorySaved = !customCategorySaved,
-        )
+        if (customCategorySaved) {
+            copy(
+                customCategorySaved = false,
+            )
+        } else {
+            copy(
+                customCategorySaved = true,
+                customCategory = customCategory?.trim()
+            )
+        }
     }
 
     fun hideCustomCategoryInput() {
@@ -224,9 +231,16 @@ class SentEnvelopeEditViewModel @Inject constructor(
     }
 
     fun toggleCustomRelationshipInputSaved() = intent {
-        copy(
-            customRelationshipSaved = !customRelationshipSaved,
-        )
+        if (customRelationshipSaved) {
+            copy(
+                customRelationshipSaved = false,
+            )
+        } else {
+            copy(
+                customRelationshipSaved = true,
+                customRelationship = customRelationship?.trim()
+            )
+        }
     }
 
     fun hideCustomRelationshipInput() {

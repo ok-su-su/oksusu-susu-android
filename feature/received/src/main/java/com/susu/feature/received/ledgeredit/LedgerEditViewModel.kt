@@ -102,9 +102,16 @@ class LedgerEditViewModel @Inject constructor(
     }
 
     fun toggleCustomCategorySaved() = intent {
-        copy(
-            isCustomCategoryChipSaved = !isCustomCategoryChipSaved,
-        )
+        if (isCustomCategoryChipSaved) {
+            copy(
+                isCustomCategoryChipSaved = false
+            )
+        } else {
+            copy(
+                isCustomCategoryChipSaved = true,
+                customCategory = customCategory.trim()
+            )
+        }
     }
 
     fun updateCustomCategory(customCategory: String) {

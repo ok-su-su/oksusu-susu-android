@@ -158,8 +158,12 @@ class ReceivedEnvelopeEditViewModel @Inject constructor(
     }
 
     fun toggleRelationSaved() = intent {
+        val trimmedRelation = envelope.relationship.copy(customRelation = envelope.relationship.customRelation?.trim())
         copy(
             isRelationSaved = !isRelationSaved,
+            envelope = envelope.copy(
+                relationship = trimmedRelation
+            )
         )
     }
 
