@@ -66,6 +66,7 @@ class ReceivedEnvelopeAddViewModel @Inject constructor(
                 hasVisited = hasVisited,
             ),
         ).onSuccess { envelope ->
+            postSideEffect(ReceivedEnvelopeAddSideEffect.ShowInAppReview)
             postSideEffect(ReceivedEnvelopeAddSideEffect.NavigateEnvelopeDetail(envelope, ledger))
         }.onFailure { throwable ->
             when (throwable) {
