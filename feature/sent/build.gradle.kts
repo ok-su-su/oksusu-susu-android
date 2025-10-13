@@ -11,4 +11,6 @@ android {
 dependencies {
     implementation(libs.kotlinx.serialization.json)
     implementation(libs.compose.toolbar)
+    implementation(libs.play.review)
+    implementation(libs.play.review.ktx)
 }
