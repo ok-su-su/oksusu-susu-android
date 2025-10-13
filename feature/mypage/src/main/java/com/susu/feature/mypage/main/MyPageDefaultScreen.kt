@@ -197,12 +197,7 @@ fun MyPageDefaultScreen(
             titleTextColor = Gray100,
             titleTextStyle = SusuTheme.typography.title_m,
             action = {
-                Row(
-                    modifier = Modifier.susuClickable(
-                        rippleEnabled = false,
-                        onClick = navigateToInfo,
-                    ),
-                ) {
+                Row {
                     Text(
                         text = stringResource(com.susu.feature.mypage.R.string.mypage_default_my_info),
                         style = SusuTheme.typography.title_xxs,
@@ -218,6 +213,7 @@ fun MyPageDefaultScreen(
             },
             padding = PaddingValues(SusuTheme.spacing.spacing_m),
             actionItemPadding = SusuTheme.spacing.spacing_xxl,
+            onMenuClick = navigateToInfo
         )
 
         MyPageDivider()

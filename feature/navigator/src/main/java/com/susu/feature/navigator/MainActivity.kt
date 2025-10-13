@@ -38,7 +38,7 @@ class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         val splashScreen = installSplashScreen()
         super.onCreate(savedInstanceState)
-
+        WindowCompat.setDecorFitsSystemWindows(window, false)
         splashScreen.setKeepOnScreenCondition { uiState.showSplashScreen }
 
         if (uiState.isNavigating) {
@@ -80,7 +80,9 @@ class MainActivity : ComponentActivity() {
         )
 
         val versionName = applicationContext.packageManager.getPackageInfo(packageName, 0).versionName
-        viewModel.checkForceUpdate(versionName)
+        if (versionName != null) {
+            viewModel.checkForceUpdate(versionName)
+        }
 
         setContent {
             SusuTheme {
