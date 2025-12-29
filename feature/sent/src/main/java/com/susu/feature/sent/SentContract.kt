@@ -60,6 +60,10 @@ enum class EnvelopeAlign(
         stringResId = R.string.word_align_low_amount,
         query = "amount,asc",
     ),
+    ALPHABET(
+        stringResId = R.string.word_align_alphabet,
+        query = "alphabet",
+    ),
 }
 
 sealed interface SentEffect : SideEffect {
