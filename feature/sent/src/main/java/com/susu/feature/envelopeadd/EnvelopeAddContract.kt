@@ -9,6 +9,7 @@ sealed interface EnvelopeAddEffect : SideEffect {
     data class HandleException(val throwable: Throwable, val retry: () -> Unit) : EnvelopeAddEffect
     data class LogClickNextButton(val step: EnvelopeAddStep) : EnvelopeAddEffect
     data class LogClickBackButton(val step: EnvelopeAddStep) : EnvelopeAddEffect
+    data object ShowInAppReview: EnvelopeAddEffect
 }
 
 /**

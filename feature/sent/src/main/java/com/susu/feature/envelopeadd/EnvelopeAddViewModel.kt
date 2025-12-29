@@ -67,6 +67,7 @@ class EnvelopeAddViewModel @Inject constructor(
                     category = category!!,
                 ),
             ).onSuccess {
+                postSideEffect(EnvelopeAddEffect.ShowInAppReview)
                 postSideEffect(EnvelopeAddEffect.NavigateSentEnvelopeDetail(it.id))
             }.onFailure {
                 postSideEffect(EnvelopeAddEffect.HandleException(it, ::createEnvelope))

@@ -43,4 +43,5 @@ sealed interface ReceivedEnvelopeAddSideEffect : SideEffect {
     data class HandleException(val throwable: Throwable, val retry: () -> Unit) : ReceivedEnvelopeAddSideEffect
     data class LogClickNextButton(val step: EnvelopeAddStep) : ReceivedEnvelopeAddSideEffect
     data class LogClickBackButton(val step: EnvelopeAddStep) : ReceivedEnvelopeAddSideEffect
+    data object ShowInAppReview: ReceivedEnvelopeAddSideEffect
 }

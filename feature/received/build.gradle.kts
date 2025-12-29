@@ -12,4 +12,6 @@ dependencies {
     implementation(libs.kotlinx.serialization.json)
     implementation(libs.compose.toolbar)
     implementation(libs.better.korean.kotlin)
+    implementation(libs.play.review)
+    implementation(libs.play.review.ktx)
 }

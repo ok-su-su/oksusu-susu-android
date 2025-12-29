@@ -1,5 +1,6 @@
 package com.susu.feature.envelopeadd
 
+import android.app.Activity
 import androidx.activity.compose.BackHandler
 import androidx.compose.animation.AnimatedContent
 import androidx.compose.foundation.background
@@ -22,6 +23,7 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.core.os.bundleOf
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
+import com.google.android.play.core.review.ReviewManagerFactory
 import com.google.firebase.analytics.FirebaseAnalytics
 import com.susu.core.designsystem.component.appbar.SusuProgressAppBar
 import com.susu.core.designsystem.component.appbar.icon.BackIcon
@@ -60,6 +62,8 @@ fun SentEnvelopeAddRoute(
     val context = LocalContext.current
     val scope = rememberCoroutineScope()
 
+    val reviewManager = remember(context) { ReviewManagerFactory.create(context) }
+
     viewModel.sideEffect.collectWithLifecycle { sideEffect ->
         when (sideEffect) {
             is EnvelopeAddEffect.HandleException -> handleException(sideEffect.throwable, sideEffect.retry)
@@ -81,6 +85,18 @@ fun SentEnvelopeAddRoute(
                         FirebaseAnalytics.Param.CONTENT_TYPE to "sent_envelope_add_screen_next_at_${sideEffect.step}",
                     ),
                 )
+            }
+
+            EnvelopeAddEffect.ShowInAppReview -> {
+                val reviewRequest = reviewManager.requestReviewFlow()
+                reviewRequest.addOnCompleteListener { request ->
+                    if (request.isSuccessful) {
+                        val reviewInfo = request.result
+                        (context as? Activity)?.let { activity ->
+                            reviewManager.launchReviewFlow(activity, reviewInfo)
+                        }
+                    }
+                }
             }
         }
     }
